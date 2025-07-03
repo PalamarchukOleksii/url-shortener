@@ -40,4 +40,9 @@ public class UserRepository(ApplicationDbContext context) : IUserRepository
     {
         return await context.Users.AnyAsync(u => u.Login == login);
     }
+
+    public async Task<User?> GetByLoginAsync(string login)
+    {
+        return await context.Users.FirstOrDefaultAsync(u => u.Login == login);
+    }
 }
