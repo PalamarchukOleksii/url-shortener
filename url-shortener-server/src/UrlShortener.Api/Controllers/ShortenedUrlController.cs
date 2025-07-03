@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using UrlShortener.Api.Dtos.ShortenedUrlDtos;
-using UrlShortener.Application.UseCases.ShortenedUrls.Commands.UrlShortening;
+using UrlShortener.Application.UseCases.ShortenedUrls.Commands.ShortenUrl;
+using UrlShortener.Application.UseCases.ShortenedUrls.Queries.RedirectToOriginalUrl;
 
 namespace UrlShortener.Api.Controllers;
 

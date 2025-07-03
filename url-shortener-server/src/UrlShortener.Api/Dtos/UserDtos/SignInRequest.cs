@@ -2,11 +2,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace UrlShortener.Api.Dtos.UserDtos;
 
-public class SignupRequest
+public class SignInRequest
 {
     [Required]
     public string Login { get; set; } = default!;
 
-    [Required, MinLength(6)]
+    [Required]
     public string Password { get; set; } = default!;
 }
