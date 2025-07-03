@@ -7,9 +7,9 @@ using UrlShortener.Domain.Shared;
 
 namespace UrlShortener.Application.UseCases.ShortenedUrls.Commands.UrlShortening;
 
-public class UrlShorteningCommandHandler(IUrlShortenerService urlShortenerService, IShortenedUrlRepository shortenedUrlRepository, IUnitOfWork unitOfWork)
+public class ShortenUrlCommandHandler(IUrlShortenerService urlShortenerService, IShortenedUrlRepository shortenedUrlRepository, IUnitOfWork unitOfWork)
 {
-    public async Task<Result<string>> Handle(UrlShorteningCommand command, CancellationToken cancellationToken)
+    public async Task<Result<string>> Handle(ShortenUrlCommand command, CancellationToken cancellationToken)
     {
         if (await shortenedUrlRepository.ExistsByOriginalUrlAsync(command.OriginalUrl))
         {

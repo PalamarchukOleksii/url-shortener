@@ -9,7 +9,7 @@ namespace UrlShortener.Api.Controllers;
 [Route("api/[controller]")]
 public class UserController(SignInCommandHandler signInCommandHandler, SignUpCommandHandler signUpCommandHandler) : ControllerBase
 {
-    [HttpPost("signup")]
+    [HttpPost]
     public async Task<IActionResult> Signup([FromBody] SignupRequest request, CancellationToken cancellationToken)
     {
         if (!ModelState.IsValid)
@@ -20,14 +20,14 @@ public class UserController(SignInCommandHandler signInCommandHandler, SignUpCom
         return response.IsSuccess ? Ok() : BadRequest(response.Error);
     }
 
-    [HttpPost("signin")]
+    [HttpPost]
     public async Task<IActionResult> Signin([FromBody] SigninRequest request, CancellationToken cancellationToken)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        var response = await signInCommandHandler.Handle(new SignInCommand(request.Login, request.Password), cancellationToken);
+        var result = await signInCommandHandler.Handle(new SignInCommand(request.Login, request.Password), cancellationToken);
 
-        return response.IsSuccess ? Ok() : BadRequest(response.Error);
+        return result.IsSuccess ? Ok() : BadRequest(result.Error);
     }
 }
