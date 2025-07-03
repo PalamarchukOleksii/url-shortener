@@ -12,8 +12,8 @@ using UrlShortener.Infrastructure.Data;
 namespace UrlShortener.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250703121725_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250703203345_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,6 +56,9 @@ namespace UrlShortener.Infrastructure.Migrations
                         .HasMaxLength(2048)
                         .HasColumnType("character varying(2048)");
 
+                    b.Property<int>("RedirectCount")
+                        .HasColumnType("integer");
+
                     b.Property<string>("ShortCode")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -64,6 +67,8 @@ namespace UrlShortener.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CreatorId");
+
+                    b.HasIndex("ShortCode");
 
                     b.ToTable("ShortenedUrls");
                 });

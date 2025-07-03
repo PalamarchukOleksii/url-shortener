@@ -53,6 +53,9 @@ namespace UrlShortener.Infrastructure.Migrations
                         .HasMaxLength(2048)
                         .HasColumnType("character varying(2048)");
 
+                    b.Property<int>("RedirectCount")
+                        .HasColumnType("integer");
+
                     b.Property<string>("ShortCode")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -61,6 +64,8 @@ namespace UrlShortener.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CreatorId");
+
+                    b.HasIndex("ShortCode");
 
                     b.ToTable("ShortenedUrls");
                 });

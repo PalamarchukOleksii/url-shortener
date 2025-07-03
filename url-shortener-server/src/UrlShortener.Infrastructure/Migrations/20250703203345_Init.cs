@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace UrlShortener.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -44,7 +44,8 @@ namespace UrlShortener.Infrastructure.Migrations
                     OriginalUrl = table.Column<string>(type: "character varying(2048)", maxLength: 2048, nullable: false),
                     ShortCode = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     CreatorId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    RedirectCount = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -86,6 +87,11 @@ namespace UrlShortener.Infrastructure.Migrations
                 name: "IX_ShortenedUrls_CreatorId",
                 table: "ShortenedUrls",
                 column: "CreatorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShortenedUrls_ShortCode",
+                table: "ShortenedUrls",
+                column: "ShortCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserRoles_RoleId",

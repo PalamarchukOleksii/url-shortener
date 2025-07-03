@@ -3,6 +3,7 @@ using UrlShortener.Api;
 using UrlShortener.Api.Extensions;
 using UrlShortener.Application;
 using UrlShortener.Infrastructure;
+using UrlShortener.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,8 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
     app.MapScalarApiReference();
+    
+    await DbSeeder.SeedAdminUserAsync(app.Services);
 }
 
 app.UseHttpsRedirection();
