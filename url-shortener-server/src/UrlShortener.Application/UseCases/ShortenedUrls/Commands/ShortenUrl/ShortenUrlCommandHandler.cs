@@ -2,10 +2,9 @@ using UrlShortener.Application.Interfaces.Data;
 using UrlShortener.Application.Interfaces.Services;
 using UrlShortener.Domain.Interfaces.Repositories;
 using UrlShortener.Domain.Models.ShortenedUrlModel;
-using UrlShortener.Domain.Models.UserModel;
 using UrlShortener.Domain.Shared;
 
-namespace UrlShortener.Application.UseCases.ShortenedUrls.Commands.UrlShortening;
+namespace UrlShortener.Application.UseCases.ShortenedUrls.Commands.ShortenUrl;
 
 public class ShortenUrlCommandHandler(IUrlShortenerService urlShortenerService, IShortenedUrlRepository shortenedUrlRepository, IUnitOfWork unitOfWork)
 {
