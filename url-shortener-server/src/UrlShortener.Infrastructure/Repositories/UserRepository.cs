@@ -35,4 +35,9 @@ public class UserRepository(ApplicationDbContext context) : IUserRepository
             context.Users.Remove(user);
         }
     }
+
+    public async Task<bool> ExistsByLoginAsync(string login)
+    {
+        return await context.Users.AnyAsync(u => u.Login == login);
+    }
 }
