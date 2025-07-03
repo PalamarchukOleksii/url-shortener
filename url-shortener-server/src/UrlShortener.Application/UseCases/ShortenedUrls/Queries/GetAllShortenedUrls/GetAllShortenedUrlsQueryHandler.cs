@@ -1,10 +1,11 @@
 using UrlShortener.Application.Dtos;
+using UrlShortener.Application.Interfaces.Messaging;
 using UrlShortener.Domain.Interfaces.Repositories;
 using UrlShortener.Domain.Shared;
 
 namespace UrlShortener.Application.UseCases.ShortenedUrls.Queries.GetAllShortenedUrls;
 
-public class GetAllShortenedUrlsQueryHandler(IShortenedUrlRepository  shortenedUrlRepository)
+public class GetAllShortenedUrlsQueryHandler(IShortenedUrlRepository  shortenedUrlRepository) : IQueryHandler<GetAllShortenedUrlsQuery, ICollection<ShortenedUrlDto>>
 {
     public async Task<Result<ICollection<ShortenedUrlDto>>> Handle(GetAllShortenedUrlsQuery query, CancellationToken cancellationToken)
     {

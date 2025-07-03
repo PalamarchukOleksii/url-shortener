@@ -1,4 +1,5 @@
 using UrlShortener.Application.Interfaces.Data;
+using UrlShortener.Application.Interfaces.Messaging;
 using UrlShortener.Application.Interfaces.Security;
 using UrlShortener.Domain.Interfaces.Repositories;
 using UrlShortener.Domain.Models.UserModel;
@@ -6,7 +7,7 @@ using UrlShortener.Domain.Shared;
 
 namespace UrlShortener.Application.UseCases.Users.Command.SignUp;
 
-public class SignUpCommandHandler(IUserRepository userRepository, IHasher hasher, IUnitOfWork unitOfWork)
+public class SignUpCommandHandler(IUserRepository userRepository, IHasher hasher, IUnitOfWork unitOfWork) : ICommandHandler<SignUpCommand>
 {
     public async Task<Result> Handle(SignUpCommand command, CancellationToken cancellationToken)
     {

@@ -1,10 +1,11 @@
+using UrlShortener.Application.Interfaces.Messaging;
 using UrlShortener.Application.UseCases.ShortenedUrls.Commands.ShortenUrl;
 using UrlShortener.Domain.Interfaces.Repositories;
 using UrlShortener.Domain.Shared;
 
 namespace UrlShortener.Application.UseCases.ShortenedUrls.Queries.RedirectToOriginalUrl;
 
-public class RedirectToOriginalUrlQueryHandler(IShortenedUrlRepository  shortenedUrlRepository)
+public class RedirectToOriginalUrlQueryHandler(IShortenedUrlRepository  shortenedUrlRepository) : IQueryHandler<RedirectToOriginalUrlQuery, string>
 {
     public async Task<Result<string>> Handle(RedirectToOriginalUrlQuery query, CancellationToken cancellationToken)
     {

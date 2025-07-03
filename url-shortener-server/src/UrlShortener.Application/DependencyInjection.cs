@@ -7,12 +7,10 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        var assembly = Assembly.GetExecutingAssembly();
-
-        assembly.GetTypes()
-            .Where(t => t.Name.EndsWith("Handler") && t is { IsAbstract: false, IsInterface: false })
-            .ToList()
-            .ForEach(t => services.AddTransient(t));
+        services.AddMediatR(configuration =>
+        {
+            configuration.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
+        });
         
         return services;
     }

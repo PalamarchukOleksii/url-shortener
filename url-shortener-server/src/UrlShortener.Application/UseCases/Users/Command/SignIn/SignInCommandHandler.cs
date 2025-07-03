@@ -1,10 +1,11 @@
+using UrlShortener.Application.Interfaces.Messaging;
 using UrlShortener.Application.Interfaces.Security;
 using UrlShortener.Domain.Interfaces.Repositories;
 using UrlShortener.Domain.Shared;
 
 namespace UrlShortener.Application.UseCases.Users.Command.SignIn;
 
-public class SignInCommandHandler(IUserRepository userRepository, IHasher hasher)
+public class SignInCommandHandler(IUserRepository userRepository, IHasher hasher) : ICommandHandler<SignInCommand>
 {
     public async Task<Result> Handle(SignInCommand command, CancellationToken cancellationToken)
     {

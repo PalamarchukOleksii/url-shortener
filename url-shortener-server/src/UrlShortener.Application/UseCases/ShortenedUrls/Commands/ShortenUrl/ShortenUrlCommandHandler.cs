@@ -1,4 +1,5 @@
 using UrlShortener.Application.Interfaces.Data;
+using UrlShortener.Application.Interfaces.Messaging;
 using UrlShortener.Application.Interfaces.Services;
 using UrlShortener.Domain.Interfaces.Repositories;
 using UrlShortener.Domain.Models.ShortenedUrlModel;
@@ -6,7 +7,7 @@ using UrlShortener.Domain.Shared;
 
 namespace UrlShortener.Application.UseCases.ShortenedUrls.Commands.ShortenUrl;
 
-public class ShortenUrlCommandHandler(IUrlShortenerService urlShortenerService, IShortenedUrlRepository shortenedUrlRepository, IUnitOfWork unitOfWork)
+public class ShortenUrlCommandHandler(IUrlShortenerService urlShortenerService, IShortenedUrlRepository shortenedUrlRepository, IUnitOfWork unitOfWork) : ICommandHandler<ShortenUrlCommand, string>
 {
     public async Task<Result<string>> Handle(ShortenUrlCommand command, CancellationToken cancellationToken)
     {
