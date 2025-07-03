@@ -1,10 +1,11 @@
 using FluentValidation;
+using UrlShortener.Application.UseCases.Abouts.Queries.GetByLanguageCode;
 
 namespace UrlShortener.Application.UseCases.Abouts.Queries.GetAboutByLanguageCode;
 
-public class GetAboutByLanguageCodeQueryValidator :  AbstractValidator<GetAboutByLanguageCodeQuery>
+public class GetByLanguageCodeQueryValidator :  AbstractValidator<GetByLanguageCodeQuery>
 {
-    public GetAboutByLanguageCodeQueryValidator()
+    public GetByLanguageCodeQueryValidator()
     {
         RuleFor(x => x.LanguageCode)
             .NotEmpty().WithMessage("LanguageCode must not be null.");

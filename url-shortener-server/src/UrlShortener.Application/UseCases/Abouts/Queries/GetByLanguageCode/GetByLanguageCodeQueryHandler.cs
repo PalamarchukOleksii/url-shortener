@@ -4,11 +4,11 @@ using UrlShortener.Domain.Interfaces.Repositories;
 using UrlShortener.Domain.Models.AboutModel;
 using UrlShortener.Domain.Shared;
 
-namespace UrlShortener.Application.UseCases.Abouts.Queries.GetAboutByLanguageCode;
+namespace UrlShortener.Application.UseCases.Abouts.Queries.GetByLanguageCode;
 
-public class GetAboutByLanguageCodeQueryHandler(IAboutRepository aboutRepository) : IQueryHandler<GetAboutByLanguageCodeQuery, AboutDto>
+public class GetByLanguageCodeQueryHandler(IAboutRepository aboutRepository) : IQueryHandler<GetByLanguageCodeQuery, AboutDto>
 {
-    public async Task<Result<AboutDto>> Handle(GetAboutByLanguageCodeQuery request, CancellationToken cancellationToken)
+    public async Task<Result<AboutDto>> Handle(GetByLanguageCodeQuery request, CancellationToken cancellationToken)
     {
         if (!Enum.TryParse<LanguageCode>(request.LanguageCode, ignoreCase: true, out var languageCode))
         {
