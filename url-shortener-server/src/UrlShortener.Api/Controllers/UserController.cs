@@ -15,9 +15,9 @@ public class UserController(SignInCommandHandler signInCommandHandler, SignUpCom
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        await signUpCommandHandler.Handle(new SignUpCommand(request.Login, request.Password), cancellationToken);
+        var response = await signUpCommandHandler.Handle(new SignUpCommand(request.Login, request.Password), cancellationToken);
 
-        return Ok();
+        return response.IsSuccess ? Ok() : BadRequest(response.Error);
     }
 
     [HttpPost("signin")]
@@ -26,8 +26,8 @@ public class UserController(SignInCommandHandler signInCommandHandler, SignUpCom
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        await signInCommandHandler.Handle(new SignInCommand(request.Login, request.Password), cancellationToken);
+        var response = await signInCommandHandler.Handle(new SignInCommand(request.Login, request.Password), cancellationToken);
 
-        return Ok();
+        return response.IsSuccess ? Ok() : BadRequest(response.Error);
     }
 }
