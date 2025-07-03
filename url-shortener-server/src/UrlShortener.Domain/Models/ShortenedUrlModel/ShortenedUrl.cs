@@ -9,6 +9,7 @@ public class ShortenedUrl
     public string ShortCode { get; init; } = string.Empty;
     public UserId CreatorId { get; init; } = new UserId(Guid.Empty);
     public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
+    public int RedirectCount { get; set; }
 
     public virtual User Creator { get; init; } = null!;
 }
