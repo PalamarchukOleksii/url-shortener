@@ -11,7 +11,7 @@ public class GetByIdEndpoint : BaseEndpoint, IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapGet("api/shortened-urls/{id:guid}", async (Guid id, ISender sender) =>
+        app.MapGet("api/shortenedurls/{id:guid}", async (Guid id, ISender sender) =>
             {
                 var query = new GetByIdQuery(new ShortenedUrlId(id));
                 var result = await sender.Send(query);
@@ -20,6 +20,6 @@ public class GetByIdEndpoint : BaseEndpoint, IEndpoint
                     ? Results.NotFound(result.Error)
                     : Results.Ok(result.Value);
             })
-            .WithName(EndpointTags.ShortenedUrls);
+            .WithTags(EndpointTags.ShortenedUrls);
     }
 }

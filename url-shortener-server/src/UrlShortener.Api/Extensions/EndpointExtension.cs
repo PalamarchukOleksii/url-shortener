@@ -18,4 +18,15 @@ public static class EndpointExtension
 
         return services;
     }
+    
+    public static IApplicationBuilder MapEndpoints(this WebApplication app)
+    {
+        var endpoints = app.Services.GetRequiredService<IEnumerable<IEndpoint>>();
+
+        IEndpointRouteBuilder routeBuilder = app;
+
+        foreach (var endpoint in endpoints) endpoint.MapEndpoint(routeBuilder);
+
+        return app;
+    }
 }

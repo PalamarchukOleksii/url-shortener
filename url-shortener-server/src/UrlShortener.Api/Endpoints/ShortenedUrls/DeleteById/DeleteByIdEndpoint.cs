@@ -11,7 +11,7 @@ public class DeleteByIdEndpoint : BaseEndpoint, IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapDelete("api/shortened-urls/{id:guid}", async (Guid id, ISender sender) =>
+        app.MapDelete("api/shortenedurls/{id:guid}", async (Guid id, ISender sender) =>
             {
                 var command = new DeleteByIdCommand(new ShortenedUrlId(id));
                 var result = await sender.Send(command);
@@ -20,6 +20,6 @@ public class DeleteByIdEndpoint : BaseEndpoint, IEndpoint
                     ? Results.NotFound(result.Error)
                     : Results.NoContent();
             })
-            .WithName(EndpointTags.ShortenedUrls);
+            .WithTags(EndpointTags.ShortenedUrls);
     }
 }

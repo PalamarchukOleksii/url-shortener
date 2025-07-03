@@ -1,5 +1,6 @@
 using Scalar.AspNetCore;
 using UrlShortener.Api;
+using UrlShortener.Api.Extensions;
 using UrlShortener.Application;
 using UrlShortener.Infrastructure;
 
@@ -22,6 +23,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapControllers();
+app.UseSession();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapEndpoints();
 
 app.Run();
