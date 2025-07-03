@@ -1,0 +1,15 @@
+services:
+  postgres-db:
+    image: docker.io/library/postgres:latest
+    container_name: postgres-urlshortener
+    environment:
+      POSTGRES_USER: urlshortener_user
+      POSTGRES_PASSWORD: urlshortener_pass
+      POSTGRES_DB: urlshortener_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
