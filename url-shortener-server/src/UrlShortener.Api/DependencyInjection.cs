@@ -1,3 +1,6 @@
+using System.Reflection;
+using UrlShortener.Api.Extensions;
+
 namespace UrlShortener.Api;
 
 public static class DependencyInjection
@@ -6,6 +9,8 @@ public static class DependencyInjection
     {
         services.AddControllers();
         services.AddOpenApi();
+        
+        services.AddEndpoints(Assembly.GetExecutingAssembly());
 
         return services;
     }
