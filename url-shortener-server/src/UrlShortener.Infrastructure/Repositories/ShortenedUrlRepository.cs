@@ -50,4 +50,14 @@ public class ShortenedUrlRepository(ApplicationDbContext context): IShortenedUrl
     {
         return await context.ShortenedUrls.FirstOrDefaultAsync(su => su.ShortCode == shortCode);
     }
+
+    public async Task<ICollection<ShortenedUrl>> GetPagedAsync(int pageNumber, int pageSize)
+    {
+        return await context.ShortenedUrls
+            .AsNoTracking()
+            .OrderByDescending(x => x.RedirectCount)
+            .Skip(Math.Max(pageNumber - 1, 0) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+    }
 }
