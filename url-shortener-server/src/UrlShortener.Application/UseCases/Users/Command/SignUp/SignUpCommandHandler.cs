@@ -20,9 +20,12 @@ public class SignUpCommandHandler(IUserRepository userRepository, IHasher hasher
             return Result.Failure(new Error(
                 "Hasher.Failed",
                 "Unable to generate secure password hash"));
-        
-        var user = new User(command.Login, passwordHash);
 
+        var user = new User
+        {
+            Login = command.Login,
+            HashedPassword = passwordHash,
+        };
         await userRepository.AddAsync(user);
         
         await unitOfWork.SaveChangesAsync(cancellationToken);

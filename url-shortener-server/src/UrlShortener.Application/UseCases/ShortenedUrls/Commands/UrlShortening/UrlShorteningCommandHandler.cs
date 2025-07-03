@@ -26,7 +26,12 @@ public class UrlShorteningCommandHandler(IUrlShortenerService urlShortenerServic
                 "Failed to create shortCode"));
         }
         
-        var shortenedUrl = new ShortenedUrl(command.OriginalUrl, shortCode, command.CallerId);
+        var shortenedUrl = new ShortenedUrl
+        {
+            OriginalUrl = command.OriginalUrl,
+            ShortCode = shortCode,
+            CreatorId = command.CallerId,
+        };
         await  shortenedUrlRepository.AddAsync(shortenedUrl);
         
         await unitOfWork.SaveChangesAsync(cancellationToken);

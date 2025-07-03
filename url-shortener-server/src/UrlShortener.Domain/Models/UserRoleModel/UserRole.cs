@@ -5,10 +5,10 @@ namespace UrlShortener.Domain.Models.UserRoleModel;
 
 public class UserRole
 {
-    public UserRoleId Id { get; init; }
-    public UserId UserId { get; init; }
-    public RoleId RoleId { get; init; }
+    public UserRoleId Id { get; init; } = new UserRoleId(Guid.NewGuid());
+    public UserId UserId { get; init; } = new UserId(Guid.Empty);
+    public RoleId RoleId { get; init; } = new RoleId(Guid.Empty);
     
-    public User User { get; init; }
-    public Role Role { get; init; }
+    public User User { get; init; } = null!;
+    public Role Role { get; init; } = null!;
 }
