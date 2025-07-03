@@ -1,7 +1,7 @@
 using MediatR;
 using UrlShortener.Api.Abstractions;
 using UrlShortener.Api.Consts;
-using UrlShortener.Application.UseCases.ShortenedUrls.Queries.GetAllShortenedUrls;
+using UrlShortener.Application.UseCases.ShortenedUrls.Queries.GetPagedUrls;
 
 namespace UrlShortener.Api.Endpoints.ShortenedUrls.GetPagedUrls;
 
