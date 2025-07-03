@@ -35,4 +35,9 @@ public class ShortenedUrlRepository(ApplicationDbContext context): IShortenedUrl
             context.ShortenedUrls.Remove(shortenedUrl);
         }
     }
+
+    public async Task<bool> ExistsByShortCodeAsync(string shortCode)
+    {
+        return await context.ShortenedUrls.AnyAsync(su => su.ShortCode == shortCode);
+    }
 }
