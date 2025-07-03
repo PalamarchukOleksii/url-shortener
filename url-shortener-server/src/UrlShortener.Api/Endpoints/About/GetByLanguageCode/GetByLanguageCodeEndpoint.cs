@@ -4,16 +4,17 @@ using UrlShortener.Api.Consts;
 using UrlShortener.Domain.Models.AboutModel;
 using MediatR;
 using UrlShortener.Application.UseCases.Abouts.Queries.GetAboutByLanguageCode;
+using UrlShortener.Application.UseCases.Abouts.Queries.GetByLanguageCode;
 
 namespace UrlShortener.Api.Endpoints.About.GetAboutByLanguageCode;
 
-public class GetAboutByLanguageCodeEndpoint : BaseEndpoint, IEndpoint
+public class GetByLanguageCodeEndpoint : BaseEndpoint, IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapGet("api/about/{languageCode}", async (string languageCode, ISender sender) =>
             {
-                var query = new GetAboutByLanguageCodeQuery(languageCode);
+                var query = new GetByLanguageCodeQuery(languageCode);
                 var result = await sender.Send(query);
 
                 return result.IsFailure
