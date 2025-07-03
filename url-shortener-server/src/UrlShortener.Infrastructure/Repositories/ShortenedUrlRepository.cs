@@ -46,6 +46,11 @@ public class ShortenedUrlRepository(ApplicationDbContext context): IShortenedUrl
         return await context.ShortenedUrls.AnyAsync(su => su.OriginalUrl == originalUrl);
     }
 
+    public async Task<bool> ExistByIdAsync(ShortenedUrlId id)
+    {
+        return await context.ShortenedUrls.AnyAsync(su => su.Id == id);
+    }
+
     public async Task<ShortenedUrl?> GetByShortCodeAsync(string shortCode)
     {
         return await context.ShortenedUrls.FirstOrDefaultAsync(su => su.ShortCode == shortCode);
