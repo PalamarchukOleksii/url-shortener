@@ -20,6 +20,7 @@ public class GetByIdEndpoint : BaseEndpoint, IEndpoint
                     ? Results.NotFound(result.Error)
                     : Results.Ok(result.Value);
             })
-            .WithTags(EndpointTags.ShortenedUrls);
+            .WithTags(EndpointTags.ShortenedUrls)
+            .RequireAuthorization("UserOrAdmin");
     }
 }

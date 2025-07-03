@@ -26,7 +26,7 @@ public class SignInEndpoint : BaseEndpoint, IEndpoint
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Login),
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+                new Claim(ClaimTypes.NameIdentifier, user.Id.Value.ToString())
             };
             claims.AddRange(user.Roles.Select(role => new Claim(ClaimTypes.Role, role.Name)));
 
