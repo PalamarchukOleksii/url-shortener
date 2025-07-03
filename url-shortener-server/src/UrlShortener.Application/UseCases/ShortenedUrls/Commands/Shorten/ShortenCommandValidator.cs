@@ -1,10 +1,10 @@
 using FluentValidation;
 
-namespace UrlShortener.Application.UseCases.ShortenedUrls.Commands.ShortenUrl;
+namespace UrlShortener.Application.UseCases.ShortenedUrls.Commands.Shorten;
 
-public class ShortenUrlCommandValidator : AbstractValidator<ShortenUrlCommand>
+public class ShortenCommandValidator : AbstractValidator<ShortenCommand>
 {
-    public ShortenUrlCommandValidator()
+    public ShortenCommandValidator()
     {
         RuleFor(cmd => cmd.OriginalUrl)
             .NotEmpty().WithMessage("Original URL must not be empty.")

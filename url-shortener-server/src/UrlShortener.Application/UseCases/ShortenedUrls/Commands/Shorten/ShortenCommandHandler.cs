@@ -4,13 +4,13 @@ using UrlShortener.Domain.Interfaces.Repositories;
 using UrlShortener.Domain.Models.ShortenedUrlModel;
 using UrlShortener.Domain.Shared;
 
-namespace UrlShortener.Application.UseCases.ShortenedUrls.Commands.ShortenUrl;
+namespace UrlShortener.Application.UseCases.ShortenedUrls.Commands.Shorten;
 
-public class ShortenUrlCommandHandler(
+public class ShortenCommandHandler(
     IUrlShortenerService urlShortenerService,
-    IShortenedUrlRepository shortenedUrlRepository) : ICommandHandler<ShortenUrlCommand, string>
+    IShortenedUrlRepository shortenedUrlRepository) : ICommandHandler<ShortenCommand, string>
 {
-    public async Task<Result<string>> Handle(ShortenUrlCommand command, CancellationToken cancellationToken)
+    public async Task<Result<string>> Handle(ShortenCommand command, CancellationToken cancellationToken)
     {
         if (await shortenedUrlRepository.ExistsByOriginalUrlAsync(command.OriginalUrl))
             return Result.Failure<string>(new Error(

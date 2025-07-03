@@ -2,19 +2,19 @@ using System.Security.Claims;
 using MediatR;
 using UrlShortener.Api.Abstractions;
 using UrlShortener.Api.Consts;
-using UrlShortener.Application.UseCases.ShortenedUrls.Commands.ShortenUrl;
+using UrlShortener.Application.UseCases.ShortenedUrls.Commands.Shorten;
 using UrlShortener.Domain.Models.UserModel;
 
-namespace UrlShortener.Api.Endpoints.ShortenedUrls.ShortenUrl;
+namespace UrlShortener.Api.Endpoints.ShortenedUrls.Shorten;
 
-public class ShortenUrlEndpoint : BaseEndpoint, IEndpoint
+public class ShortenEndpoint : BaseEndpoint, IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPost("api/shortenedurls/shorten-url", async (
+        app.MapPost("api/shortenedurls/shorten", async (
                 HttpContext http,
                 ISender sender,
-                ShortenUrlRequest request) =>
+                ShortenRequest request) =>
             {
                 var userIdClaim = http.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 if (userIdClaim is null)
@@ -22,7 +22,7 @@ public class ShortenUrlEndpoint : BaseEndpoint, IEndpoint
 
                 var userId = new UserId(Guid.Parse(userIdClaim));
 
-                var commandRequest = new ShortenUrlCommand(request.OriginalUrl, userId);
+                var commandRequest = new ShortenCommand(request.OriginalUrl, userId);
                 var response = await sender.Send(commandRequest);
 
                 return response.IsFailure

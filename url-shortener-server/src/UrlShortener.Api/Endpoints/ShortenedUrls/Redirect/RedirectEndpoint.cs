@@ -15,6 +15,5 @@ public class RedirectEndpoint : BaseEndpoint, IEndpoint
 
             return response.IsFailure ? HandleFailure(response) : Results.Redirect(response.Value);
         }).AllowAnonymous();
-        ;
     }
 }
