@@ -9,7 +9,7 @@ public class UserRoleRepository(ApplicationDbContext context) :IUserRoleReposito
 {
     public async Task<UserRole?> GetByIdAsync(UserRoleId id)
     {
-        return await context.UserRoles.FindAsync(id);
+        return await context.UserRoles.FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<IEnumerable<UserRole>> GetAllAsync()
@@ -29,7 +29,7 @@ public class UserRoleRepository(ApplicationDbContext context) :IUserRoleReposito
 
     public async Task DeleteAsync(UserRoleId id)
     {
-        var userRole = await context.UserRoles.FindAsync(id);
+        var userRole = await context.UserRoles.FirstOrDefaultAsync(x => x.Id == id);
         if (userRole != null)
         {
             context.UserRoles.Remove(userRole);

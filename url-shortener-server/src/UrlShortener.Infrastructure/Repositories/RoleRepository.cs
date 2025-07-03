@@ -9,7 +9,7 @@ public class RoleRepository(ApplicationDbContext context) :IRoleRepository
 {
     public async Task<Role?> GetByIdAsync(RoleId id)
     {
-        return await context.Roles.FindAsync(id);
+        return await context.Roles.FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<IEnumerable<Role>> GetAllAsync()

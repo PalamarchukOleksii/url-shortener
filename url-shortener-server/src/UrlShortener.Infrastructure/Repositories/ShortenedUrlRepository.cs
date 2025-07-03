@@ -9,7 +9,7 @@ public class ShortenedUrlRepository(ApplicationDbContext context): IShortenedUrl
 {
     public async Task<ShortenedUrl?> GetByIdAsync(ShortenedUrlId id)
     {
-        return await context.ShortenedUrls.FindAsync(id);
+        return await context.ShortenedUrls.FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<IEnumerable<ShortenedUrl>> GetAllAsync()
@@ -29,7 +29,7 @@ public class ShortenedUrlRepository(ApplicationDbContext context): IShortenedUrl
 
     public async Task DeleteAsync(ShortenedUrlId id)
     {
-        var shortenedUrl = await context.ShortenedUrls.FindAsync(id);
+        var shortenedUrl = await context.ShortenedUrls.FirstOrDefaultAsync(x => x.Id == id);
         if (shortenedUrl != null)
         {
             context.ShortenedUrls.Remove(shortenedUrl);
