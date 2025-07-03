@@ -3,4 +3,4 @@ using UrlShortener.Application.Interfaces.Messaging;
 
 namespace UrlShortener.Application.UseCases.ShortenedUrls.Queries.GetAllShortenedUrls;
 
-public record GetAllShortenedUrlsQuery(int Page, int Size) : IQuery<ICollection<ShortenedUrlDto>>;
+public record GetPagedUrlsQuery(int Page, int Size) : IQuery<ICollection<ShortenedUrlDtoShort>>;

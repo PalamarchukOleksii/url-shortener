@@ -3,7 +3,7 @@ using UrlShortener.Domain.Models.UserModel;
 
 namespace UrlShortener.Application.Dtos;
 
-public class ShortenedUrlDto
+public class ShortenedUrlDtoShort
 {
     public ShortenedUrlId Id { get; init; } = new ShortenedUrlId(Guid.NewGuid());
     public string OriginalUrl { get; init; } = string.Empty;
