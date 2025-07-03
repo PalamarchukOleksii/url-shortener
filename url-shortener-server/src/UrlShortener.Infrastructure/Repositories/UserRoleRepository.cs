@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using UrlShortener.Domain.Interfaces.Repositories;
+using UrlShortener.Domain.Models.UserModel;
 using UrlShortener.Domain.Models.UserRoleModel;
 using UrlShortener.Infrastructure.Data;
 
@@ -34,5 +35,10 @@ public class UserRoleRepository(ApplicationDbContext context) :IUserRoleReposito
         {
             context.UserRoles.Remove(userRole);
         }
+    }
+
+    public async Task<ICollection<UserRole>> GetByUserIdAsync(UserId userId)
+    {
+        return await context.UserRoles.Where(x => x.UserId == userId).ToListAsync();
     }
 }
