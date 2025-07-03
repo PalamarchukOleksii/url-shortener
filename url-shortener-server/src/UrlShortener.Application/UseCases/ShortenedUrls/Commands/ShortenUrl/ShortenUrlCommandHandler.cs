@@ -7,7 +7,7 @@ using UrlShortener.Domain.Shared;
 
 namespace UrlShortener.Application.UseCases.ShortenedUrls.Commands.ShortenUrl;
 
-public class ShortenUrlCommandHandler(IUrlShortenerService urlShortenerService, IShortenedUrlRepository shortenedUrlRepository, IUnitOfWork unitOfWork) : ICommandHandler<ShortenUrlCommand, string>
+public class ShortenUrlCommandHandler(IUrlShortenerService urlShortenerService, IShortenedUrlRepository shortenedUrlRepository) : ICommandHandler<ShortenUrlCommand, string>
 {
     public async Task<Result<string>> Handle(ShortenUrlCommand command, CancellationToken cancellationToken)
     {
@@ -33,8 +33,6 @@ public class ShortenUrlCommandHandler(IUrlShortenerService urlShortenerService, 
             CreatorId = command.CallerId,
         };
         await  shortenedUrlRepository.AddAsync(shortenedUrl);
-        
-        await unitOfWork.SaveChangesAsync(cancellationToken);
         
         return Result.Success(shortCode);
     }

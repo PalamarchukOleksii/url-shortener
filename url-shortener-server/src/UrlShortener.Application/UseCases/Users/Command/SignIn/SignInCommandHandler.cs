@@ -2,12 +2,11 @@ using UrlShortener.Application.Dtos;
 using UrlShortener.Application.Interfaces.Messaging;
 using UrlShortener.Application.Interfaces.Security;
 using UrlShortener.Domain.Interfaces.Repositories;
-using UrlShortener.Domain.Models.UserModel;
 using UrlShortener.Domain.Shared;
 
 namespace UrlShortener.Application.UseCases.Users.Command.SignIn;
 
-public class SignInCommandHandler(IUserRepository userRepository, IHasher hasher, IUserRoleRepository userRoleRepository, IRoleRepository roleRepository) : ICommandHandler<SignInCommand, UserDto>
+public class SignInCommandHandler(IUserRepository userRepository, IHasher hasher, IUserRoleRepository userRoleRepository) : ICommandHandler<SignInCommand, UserDto>
 {
     public async Task<Result<UserDto>> Handle(SignInCommand command, CancellationToken cancellationToken)
     {

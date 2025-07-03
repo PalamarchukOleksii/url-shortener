@@ -3,11 +3,12 @@ using UrlShortener.Application.Interfaces.Messaging;
 using UrlShortener.Application.Interfaces.Security;
 using UrlShortener.Domain.Interfaces.Repositories;
 using UrlShortener.Domain.Models.UserModel;
+using UrlShortener.Domain.Models.UserRoleModel;
 using UrlShortener.Domain.Shared;
 
 namespace UrlShortener.Application.UseCases.Users.Command.SignUp;
 
-public class SignUpCommandHandler(IUserRepository userRepository, IHasher hasher, IUnitOfWork unitOfWork) : ICommandHandler<SignUpCommand>
+public class SignUpCommandHandler(IUserRepository userRepository, IHasher hasher, IRoleRepository roleRepository, IUserRoleRepository userRoleRepository) : ICommandHandler<SignUpCommand>
 {
     public async Task<Result> Handle(SignUpCommand command, CancellationToken cancellationToken)
     {
@@ -29,7 +30,18 @@ public class SignUpCommandHandler(IUserRepository userRepository, IHasher hasher
         };
         await userRepository.AddAsync(user);
         
-        await unitOfWork.SaveChangesAsync(cancellationToken);
+        var userRole = await roleRepository.GetByNameAsync("User");
+        if (userRole is null)
+            return Result.Failure(new Error(
+                "Role.MissingDefaultUserRole",
+                "Default role 'User' not found."));
+        
+        var userRoleLink = new UserRole
+        {
+            UserId = user.Id,
+            RoleId = userRole.Id
+        };
+        await userRoleRepository.AddAsync(userRoleLink);
 
         return Result.Success();
     }

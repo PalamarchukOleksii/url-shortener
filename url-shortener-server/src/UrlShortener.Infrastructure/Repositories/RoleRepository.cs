@@ -35,4 +35,9 @@ public class RoleRepository(ApplicationDbContext context) :IRoleRepository
             context.Roles.Remove(role);
         }
     }
+
+    public async Task<Role?> GetByNameAsync(string name)
+    {
+        return await context.Roles.FirstOrDefaultAsync(u => u.Name == name);
+    }
 }
