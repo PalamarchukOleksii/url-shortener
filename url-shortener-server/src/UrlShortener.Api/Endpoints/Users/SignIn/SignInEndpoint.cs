@@ -36,6 +36,6 @@ public class SignInEndpoint : BaseEndpoint, IEndpoint
             await http.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
             return Results.Ok();
-        }).WithTags(EndpointTags.Users);
+        }).WithTags(EndpointTags.Users).AllowAnonymous();
     }
 }

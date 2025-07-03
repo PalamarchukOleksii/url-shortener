@@ -21,7 +21,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.MapScalarApiReference();
     
-    await DbSeeder.SeedAdminUserAsync(app.Services);
+    await DbSeeder.SeedAsync(app.Services);
 }
 
 app.UseHttpsRedirection();

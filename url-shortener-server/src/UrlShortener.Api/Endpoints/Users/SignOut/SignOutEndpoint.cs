@@ -13,6 +13,6 @@ public class SignOutEndpoint : BaseEndpoint, IEndpoint
         {
             await http.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return Results.Ok();
-        }).WithTags(EndpointTags.Users);
+        }).WithTags(EndpointTags.Users).RequireAuthorization("UserOrAdmin");
     }
 }

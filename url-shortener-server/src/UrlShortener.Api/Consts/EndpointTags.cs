@@ -4,4 +4,5 @@ public static class EndpointTags
 {
     public const string Users = "users";
     public const string ShortenedUrls = "shortenedurls";
+    public const string About = "about";
 }

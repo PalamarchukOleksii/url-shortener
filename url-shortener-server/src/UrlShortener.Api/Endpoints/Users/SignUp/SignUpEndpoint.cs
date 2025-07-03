@@ -15,6 +15,6 @@ public class SignUpEndpoint:BaseEndpoint, IEndpoint
 
             var response = await sender.Send(commandRequest);
             return !response.IsSuccess ? HandleFailure(response) : Results.Ok();
-        }).WithTags(EndpointTags.Users);
+        }).WithTags(EndpointTags.Users).AllowAnonymous();
     }
 }

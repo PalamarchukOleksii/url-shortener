@@ -16,6 +16,6 @@ public class GetPagedUrlsEndpoint : BaseEndpoint, IEndpoint
 
                 return response.IsFailure ? HandleFailure(response) : Results.Ok(response.Value);
             })
-            .WithTags(EndpointTags.ShortenedUrls);
+            .WithTags(EndpointTags.ShortenedUrls).AllowAnonymous();;
     }
 }
