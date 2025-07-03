@@ -12,8 +12,8 @@ using UrlShortener.Infrastructure.Data;
 namespace UrlShortener.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250703214802_AddAbout")]
-    partial class AddAbout
+    [Migration("20250703221230_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,6 +45,9 @@ namespace UrlShortener.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Language")
+                        .IsUnique();
+
                     b.ToTable("Abouts");
                 });
 
@@ -59,6 +62,9 @@ namespace UrlShortener.Infrastructure.Migrations
                         .HasColumnType("character varying(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Roles");
                 });
@@ -91,7 +97,11 @@ namespace UrlShortener.Infrastructure.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.HasIndex("ShortCode");
+                    b.HasIndex("OriginalUrl")
+                        .IsUnique();
+
+                    b.HasIndex("ShortCode")
+                        .IsUnique();
 
                     b.ToTable("ShortenedUrls");
                 });
@@ -111,6 +121,9 @@ namespace UrlShortener.Infrastructure.Migrations
                         .HasColumnType("character varying(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Login")
+                        .IsUnique();
 
                     b.ToTable("Users");
                 });

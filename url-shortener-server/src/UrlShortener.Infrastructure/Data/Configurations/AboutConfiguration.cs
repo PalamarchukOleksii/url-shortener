@@ -25,5 +25,8 @@ public class AboutConfiguration : IEntityTypeConfiguration<About>
         
         builder.Property(a => a.LastEditAt)
             .IsRequired();
+        
+        builder.HasIndex(a => a.Language)
+            .IsUnique();
     }
 }

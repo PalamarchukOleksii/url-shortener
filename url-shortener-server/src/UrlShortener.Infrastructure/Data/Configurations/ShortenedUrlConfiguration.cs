@@ -33,6 +33,10 @@ public class ShortenedUrlConfiguration : IEntityTypeConfiguration<ShortenedUrl>
         builder.Property(x => x.RedirectCount)
             .IsRequired();
         
-        builder.HasIndex(x => x.ShortCode);
+        builder.HasIndex(x => x.ShortCode)
+            .IsUnique();
+        
+        builder.HasIndex(x => x.OriginalUrl)
+            .IsUnique();
     }
 }

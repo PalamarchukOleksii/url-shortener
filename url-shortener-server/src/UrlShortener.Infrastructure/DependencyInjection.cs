@@ -23,6 +23,7 @@ public static class DependencyInjection
         services.AddScoped<IRoleRepository, RoleRepository>();
         services.AddScoped<IUserRoleRepository, UserRoleRepository>();
         services.AddScoped<IShortenedUrlRepository, ShortenedUrlRepository>();
+        services.AddScoped<IAboutRepository, AboutRepository>();
         
         services.AddScoped<IUrlShortenerService, UrlShortenerService>();
         

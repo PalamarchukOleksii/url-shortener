@@ -36,4 +36,9 @@ public class AboutRepository(ApplicationDbContext context) : IAboutRepository
             await context.SaveChangesAsync();
         }
     }
+
+    public async Task<About?> GetByLanguageCode(LanguageCode languageCode)
+    {
+        return await context.Abouts.FirstOrDefaultAsync(a => a.Language == languageCode);
+    }
 }

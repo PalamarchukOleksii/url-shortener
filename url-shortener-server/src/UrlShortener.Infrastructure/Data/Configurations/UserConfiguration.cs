@@ -25,5 +25,8 @@ public class UserConfiguration :  IEntityTypeConfiguration<User>
             .WithOne(su => su.Creator)
             .HasForeignKey(su => su.CreatorId)
             .OnDelete(DeleteBehavior.Cascade);
+        
+        builder.HasIndex(x => x.Login)
+            .IsUnique();
     }
 }
