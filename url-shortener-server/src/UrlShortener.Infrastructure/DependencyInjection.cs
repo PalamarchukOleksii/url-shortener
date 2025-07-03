@@ -1,10 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using UrlShortener.Application.Interfaces.Data;
+using UrlShortener.Application.Interfaces.Security;
 using UrlShortener.Application.Interfaces.Services;
 using UrlShortener.Domain.Interfaces.Repositories;
 using UrlShortener.Infrastructure.Data;
 using UrlShortener.Infrastructure.Repositories;
+using UrlShortener.Infrastructure.Security;
 using UrlShortener.Infrastructure.Services;
 
 namespace UrlShortener.Infrastructure;
@@ -22,6 +25,9 @@ public static class DependencyInjection
         services.AddScoped<IShortenedUrlRepository, ShortenedUrlRepository>();
         
         services.AddScoped<IUrlShortenerService, UrlShortenerService>();
+        
+        services.AddSingleton<IHasher, Hasher>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         
         return services;
     }
