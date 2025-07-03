@@ -39,6 +39,6 @@ public class UserRoleRepository(ApplicationDbContext context) :IUserRoleReposito
 
     public async Task<ICollection<UserRole>> GetByUserIdAsync(UserId userId)
     {
-        return await context.UserRoles.Where(x => x.UserId == userId).ToListAsync();
+        return await context.UserRoles.Include(ur => ur.Role).Where(x => x.UserId == userId).ToListAsync();
     }
 }
