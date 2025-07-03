@@ -6,4 +6,5 @@ public interface IShortenedUrlRepository :IRepository<ShortenedUrl,ShortenedUrlI
 {
     Task<bool> ExistsByShortCodeAsync(string shortCode);
     Task<bool> ExistsByOriginalUrlAsync(string originalUrl);
+    Task<ShortenedUrl?> GetByShortCodeAsync(string shortCode);
 }
