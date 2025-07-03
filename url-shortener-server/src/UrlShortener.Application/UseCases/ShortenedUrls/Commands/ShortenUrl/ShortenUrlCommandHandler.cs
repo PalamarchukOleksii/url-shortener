@@ -23,7 +23,7 @@ public class ShortenUrlCommandHandler(IUrlShortenerService urlShortenerService, 
         {
             return Result.Failure<string>(new Error(
                 "ShortenedUrl.FailedToCreateShortCode",
-                "Failed to create shortCode"));
+                "Failed to create shortCode."));
         }
         
         var shortenedUrl = new ShortenedUrl

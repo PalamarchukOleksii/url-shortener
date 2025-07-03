@@ -14,7 +14,7 @@ public class GetByIdQueryHandler(IShortenedUrlRepository shortenedUrlRepository)
         {
             return Result.Failure<ShortenedUrlDtoFull>(new Error(
                 "ShortenedUrl.NotFound",
-                $"Redirect URL not found for id '{request.Id.Value}'"));
+                $"Redirect URL not found for id '{request.Id.Value}'."));
         }
 
         var shortenedUrlDto = new ShortenedUrlDtoFull

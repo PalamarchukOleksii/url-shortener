@@ -14,7 +14,7 @@ public class RedirectToOriginalUrlQueryHandler(IShortenedUrlRepository  shortene
         {
             return Result.Failure<string>(new Error(
                 "ShortenedUrl.NotFound",
-                $"Redirect URL not found for short code '{query.ShortCode}'"));
+                $"Redirect URL not found for short code '{query.ShortCode}'."));
         }
         
         shortenedUrl.RedirectCount += 1;

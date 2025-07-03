@@ -14,13 +14,13 @@ public class SignUpCommandHandler(IUserRepository userRepository, IHasher hasher
         if (await userRepository.ExistsByLoginAsync(command.Login))
             return Result.Failure(new Error(
                 "User.NotUniqueLogin",
-                $"User with login {command.Login} has already exist"));
+                $"User with login {command.Login} has already exist."));
 
         var passwordHash = await hasher.HashAsync(command.Password);
         if (passwordHash is null)
             return Result.Failure(new Error(
                 "Hasher.Failed",
-                "Unable to generate secure password hash"));
+                "Unable to generate secure password hash."));
 
         var user = new User
         {

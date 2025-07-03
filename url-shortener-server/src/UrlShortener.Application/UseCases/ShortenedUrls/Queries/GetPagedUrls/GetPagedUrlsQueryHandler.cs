@@ -3,7 +3,7 @@ using UrlShortener.Application.Interfaces.Messaging;
 using UrlShortener.Domain.Interfaces.Repositories;
 using UrlShortener.Domain.Shared;
 
-namespace UrlShortener.Application.UseCases.ShortenedUrls.Queries.GetAllShortenedUrls;
+namespace UrlShortener.Application.UseCases.ShortenedUrls.Queries.GetPagedUrls;
 
 public class GetPagedUrlsQueryHandler(IShortenedUrlRepository  shortenedUrlRepository) : IQueryHandler<GetPagedUrlsQuery, ICollection<ShortenedUrlDtoShort>>
 {

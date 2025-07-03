@@ -12,7 +12,7 @@ public class DeleteByIdCommandHandler(IShortenedUrlRepository shortenedUrlReposi
         {
             return Result.Failure(new Error(
                 "ShortenedUrl.NotFound",
-                $"Redirect URL not found for id '{request.Id.Value}'"));
+                $"Redirect URL not found for id '{request.Id.Value}'."));
         }
 
         await shortenedUrlRepository.DeleteAsync(request.Id);

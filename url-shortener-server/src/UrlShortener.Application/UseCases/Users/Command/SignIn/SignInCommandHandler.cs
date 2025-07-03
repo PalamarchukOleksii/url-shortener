@@ -13,13 +13,13 @@ public class SignInCommandHandler(IUserRepository userRepository, IHasher hasher
         if (user is null)
             return Result.Failure(new Error(
                 "User.NotFound",
-                $"User with login {command.Login} was not found"));
+                $"User with login {command.Login} was not found."));
 
         var isPasswordValid = await hasher.VerifyAsync(command.Password, user.HashedPassword);
         if (!isPasswordValid)
             return Result.Failure(new Error(
                 "User.IncorrectPassword",
-                "Incorrect password"));
+                "Incorrect password."));
 
         return Result.Success();
     }
