@@ -5,7 +5,7 @@ using UrlShortener.Application.UseCases.Users.Command.SignUp;
 
 namespace UrlShortener.Api.Endpoints.Users.SignUp;
 
-public class SignUpEndpoint:BaseEndpoint, IEndpoint
+public class SignUpEndpoint : BaseEndpoint, IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {

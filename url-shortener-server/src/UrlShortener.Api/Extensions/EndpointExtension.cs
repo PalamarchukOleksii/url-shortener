@@ -18,7 +18,7 @@ public static class EndpointExtension
 
         return services;
     }
-    
+
     public static IApplicationBuilder MapEndpoints(this WebApplication app)
     {
         var endpoints = app.Services.GetRequiredService<IEnumerable<IEndpoint>>();

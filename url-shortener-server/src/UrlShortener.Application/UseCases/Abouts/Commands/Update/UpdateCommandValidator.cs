@@ -13,7 +13,7 @@ public class UpdateCommandValidator : AbstractValidator<UpdateCommand>
         RuleFor(x => x.NewDescription)
             .NotEmpty().WithMessage("Description cannot be empty.")
             .MaximumLength(4000).WithMessage("Description cannot exceed 4000 characters.");
-        
+
         RuleFor(x => x.CallerId)
             .NotNull().WithMessage("CallerId must not be null.")
             .Must(id => id.Value != Guid.Empty).WithMessage("CallerId must be a valid identifier.");

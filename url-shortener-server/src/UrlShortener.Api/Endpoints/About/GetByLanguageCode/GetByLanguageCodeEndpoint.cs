@@ -1,9 +1,6 @@
-using Microsoft.AspNetCore.Routing;
+using MediatR;
 using UrlShortener.Api.Abstractions;
 using UrlShortener.Api.Consts;
-using UrlShortener.Domain.Models.AboutModel;
-using MediatR;
-using UrlShortener.Application.UseCases.Abouts.Queries.GetAboutByLanguageCode;
 using UrlShortener.Application.UseCases.Abouts.Queries.GetByLanguageCode;
 
 namespace UrlShortener.Api.Endpoints.About.GetAboutByLanguageCode;

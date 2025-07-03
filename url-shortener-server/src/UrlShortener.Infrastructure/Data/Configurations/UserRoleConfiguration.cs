@@ -11,7 +11,7 @@ public class UserRoleConfiguration : IEntityTypeConfiguration<UserRole>
     public void Configure(EntityTypeBuilder<UserRole> builder)
     {
         builder.HasKey(x => x.Id);
-        
+
         builder.Property(x => x.Id)
             .HasConversion(id => id.Value, value => new UserRoleId(value))
             .ValueGeneratedNever();
@@ -23,7 +23,7 @@ public class UserRoleConfiguration : IEntityTypeConfiguration<UserRole>
         builder.Property(x => x.RoleId)
             .HasConversion(id => id.Value, value => new RoleId(value))
             .ValueGeneratedNever();
-        
+
         builder.HasOne(x => x.User)
             .WithMany(u => u.UserRoles)
             .HasForeignKey(x => x.UserId);

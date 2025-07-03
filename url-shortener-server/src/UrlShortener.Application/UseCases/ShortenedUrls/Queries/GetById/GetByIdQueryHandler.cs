@@ -5,17 +5,16 @@ using UrlShortener.Domain.Shared;
 
 namespace UrlShortener.Application.UseCases.ShortenedUrls.Queries.GetById;
 
-public class GetByIdQueryHandler(IShortenedUrlRepository shortenedUrlRepository) : IQueryHandler<GetByIdQuery, ShortenedUrlDtoFull>
+public class GetByIdQueryHandler(IShortenedUrlRepository shortenedUrlRepository)
+    : IQueryHandler<GetByIdQuery, ShortenedUrlDtoFull>
 {
     public async Task<Result<ShortenedUrlDtoFull>> Handle(GetByIdQuery request, CancellationToken cancellationToken)
     {
         var shortenedUrl = await shortenedUrlRepository.GetByIdAsync(request.Id);
         if (shortenedUrl is null)
-        {
             return Result.Failure<ShortenedUrlDtoFull>(new Error(
                 "ShortenedUrl.NotFound",
                 $"Redirect URL not found for id '{request.Id.Value}'."));
-        }
 
         var shortenedUrlDto = new ShortenedUrlDtoFull
         {
@@ -24,9 +23,9 @@ public class GetByIdQueryHandler(IShortenedUrlRepository shortenedUrlRepository)
             ShortCode = shortenedUrl.ShortCode,
             CreatorId = shortenedUrl.CreatorId,
             CreatedAt = shortenedUrl.CreatedAt,
-            RedirectCount = shortenedUrl.RedirectCount,
+            RedirectCount = shortenedUrl.RedirectCount
         };
-        
+
         return Result.Success<ShortenedUrlDtoFull>(shortenedUrlDto);
     }
 }

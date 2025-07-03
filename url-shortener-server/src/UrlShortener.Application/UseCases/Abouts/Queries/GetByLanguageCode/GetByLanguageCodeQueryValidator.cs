@@ -3,7 +3,7 @@ using UrlShortener.Application.UseCases.Abouts.Queries.GetByLanguageCode;
 
 namespace UrlShortener.Application.UseCases.Abouts.Queries.GetAboutByLanguageCode;
 
-public class GetByLanguageCodeQueryValidator :  AbstractValidator<GetByLanguageCodeQuery>
+public class GetByLanguageCodeQueryValidator : AbstractValidator<GetByLanguageCodeQuery>
 {
     public GetByLanguageCodeQueryValidator()
     {

@@ -11,21 +11,17 @@ public class DeleteByIdCommandHandler(
     {
         var shortenedUrl = await shortenedUrlRepository.GetByIdAsync(request.Id);
         if (shortenedUrl is null)
-        {
             return Result.Failure(new Error(
                 "ShortenedUrl.NotFound",
                 $"Redirect URL not found for id '{request.Id.Value}'."));
-        }
 
         var isOwner = shortenedUrl.CreatorId == request.CallerId;
         var isAdmin = request.Roles.Contains("Admin");
 
         if (!isOwner && !isAdmin)
-        {
             return Result.Failure(new Error(
                 "Authorization.Forbidden",
                 "Only the owner or an admin can delete this shortened URL."));
-        }
 
         await shortenedUrlRepository.DeleteAsync(request.Id);
 

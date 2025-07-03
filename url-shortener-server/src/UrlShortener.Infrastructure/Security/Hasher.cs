@@ -6,10 +6,10 @@ namespace UrlShortener.Infrastructure.Security;
 
 public class Hasher : IHasher
 {
-    private readonly HashAlgorithmName _algorithm = HashAlgorithmName.SHA512;
     private const int HashSize = 64;
     private const int Iterations = 600_000;
     private const int SaltSize = 32;
+    private readonly HashAlgorithmName _algorithm = HashAlgorithmName.SHA512;
 
     public async Task<string?> HashAsync(string value)
     {

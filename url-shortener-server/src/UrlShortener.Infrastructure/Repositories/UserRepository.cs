@@ -30,10 +30,7 @@ public class UserRepository(ApplicationDbContext context) : IUserRepository
     public async Task DeleteAsync(UserId id)
     {
         var user = await context.Users.FirstOrDefaultAsync(u => u.Id.Value == id.Value);
-        if (user != null)
-        {
-            context.Users.Remove(user);
-        }
+        if (user != null) context.Users.Remove(user);
     }
 
     public async Task<bool> ExistsByLoginAsync(string login)

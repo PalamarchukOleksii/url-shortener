@@ -15,10 +15,8 @@ public class SignInEndpoint : BaseEndpoint, IEndpoint
         app.MapPost("api/users/signin", async (HttpContext http, ISender sender, SignInRequest request) =>
         {
             if (http.User?.Identity?.IsAuthenticated == true)
-            {
                 return Results.BadRequest(new { Error = "You are already signed in." });
-            }
-            
+
             var commandRequest = new SignInCommand(request.Login, request.Password);
 
             var response = await sender.Send(commandRequest);
@@ -30,8 +28,8 @@ public class SignInEndpoint : BaseEndpoint, IEndpoint
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.Login),
-                new Claim(ClaimTypes.NameIdentifier, user.Id.Value.ToString())
+                new(ClaimTypes.Name, user.Login),
+                new(ClaimTypes.NameIdentifier, user.Id.Value.ToString())
             };
             claims.AddRange(user.Roles.Select(role => new Claim(ClaimTypes.Role, role.Name)));
 

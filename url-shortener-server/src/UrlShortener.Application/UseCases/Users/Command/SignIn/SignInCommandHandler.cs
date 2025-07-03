@@ -6,7 +6,10 @@ using UrlShortener.Domain.Shared;
 
 namespace UrlShortener.Application.UseCases.Users.Command.SignIn;
 
-public class SignInCommandHandler(IUserRepository userRepository, IHasher hasher, IUserRoleRepository userRoleRepository) : ICommandHandler<SignInCommand, UserDto>
+public class SignInCommandHandler(
+    IUserRepository userRepository,
+    IHasher hasher,
+    IUserRoleRepository userRoleRepository) : ICommandHandler<SignInCommand, UserDto>
 {
     public async Task<Result<UserDto>> Handle(SignInCommand command, CancellationToken cancellationToken)
     {
@@ -21,7 +24,7 @@ public class SignInCommandHandler(IUserRepository userRepository, IHasher hasher
             return Result.Failure<UserDto>(new Error(
                 "User.IncorrectPassword",
                 "Incorrect password."));
-        
+
         var userRoles = await userRoleRepository.GetByUserIdAsync(user.Id);
         var roles = userRoles.Select(ur => ur.Role).ToList();
 

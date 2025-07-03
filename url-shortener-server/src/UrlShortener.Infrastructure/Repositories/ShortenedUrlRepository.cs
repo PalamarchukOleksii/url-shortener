@@ -5,7 +5,7 @@ using UrlShortener.Infrastructure.Data;
 
 namespace UrlShortener.Infrastructure.Repositories;
 
-public class ShortenedUrlRepository(ApplicationDbContext context): IShortenedUrlRepository
+public class ShortenedUrlRepository(ApplicationDbContext context) : IShortenedUrlRepository
 {
     public async Task<ShortenedUrl?> GetByIdAsync(ShortenedUrlId id)
     {
@@ -30,10 +30,7 @@ public class ShortenedUrlRepository(ApplicationDbContext context): IShortenedUrl
     public async Task DeleteAsync(ShortenedUrlId id)
     {
         var shortenedUrl = await context.ShortenedUrls.FirstOrDefaultAsync(x => x.Id == id);
-        if (shortenedUrl != null)
-        {
-            context.ShortenedUrls.Remove(shortenedUrl);
-        }
+        if (shortenedUrl != null) context.ShortenedUrls.Remove(shortenedUrl);
     }
 
     public async Task<bool> ExistsByShortCodeAsync(string shortCode)

@@ -10,9 +10,9 @@ public static class DependencyInjection
     {
         services.AddControllers();
         services.AddOpenApi();
-        
+
         services.AddEndpoints(Assembly.GetExecutingAssembly());
-        
+
         services.AddDistributedMemoryCache();
         services.AddSession(options =>
         {
@@ -34,6 +34,7 @@ public static class DependencyInjection
                         context.Response.StatusCode = StatusCodes.Status401Unauthorized;
                         return Task.CompletedTask;
                     }
+
                     context.Response.Redirect(context.RedirectUri);
                     return Task.CompletedTask;
                 };
@@ -45,6 +46,7 @@ public static class DependencyInjection
                         context.Response.StatusCode = StatusCodes.Status403Forbidden;
                         return Task.CompletedTask;
                     }
+
                     context.Response.Redirect(context.RedirectUri);
                     return Task.CompletedTask;
                 };

@@ -7,7 +7,9 @@ namespace UrlShortener.Infrastructure.Services;
 public class UrlShortenerService(IShortenedUrlRepository shortenedUrlRepository) : IUrlShortenerService
 {
     private const int NumberOfCharsInShortCode = 7;
-    private static readonly char[] Alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".ToCharArray();
+
+    private static readonly char[] Alphabet =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".ToCharArray();
 
     public async Task<string?> CreateShortCodeAsync()
     {
@@ -16,15 +18,12 @@ public class UrlShortenerService(IShortenedUrlRepository shortenedUrlRepository)
         for (var attempt = 0; attempt < maxAttempts; attempt++)
         {
             shortCode = GenerateRandomCode();
-            if (!await shortenedUrlRepository.ExistsByShortCodeAsync(shortCode))
-            {
-                return shortCode;
-            }
+            if (!await shortenedUrlRepository.ExistsByShortCodeAsync(shortCode)) return shortCode;
         }
-        
+
         return shortCode;
     }
-    
+
     private static string GenerateRandomCode()
     {
         var bytes = new byte[NumberOfCharsInShortCode];
@@ -34,10 +33,7 @@ public class UrlShortenerService(IShortenedUrlRepository shortenedUrlRepository)
         }
 
         var chars = new char[NumberOfCharsInShortCode];
-        for (var i = 0; i < NumberOfCharsInShortCode; i++)
-        {
-            chars[i] = Alphabet[bytes[i] % Alphabet.Length];
-        }
+        for (var i = 0; i < NumberOfCharsInShortCode; i++) chars[i] = Alphabet[bytes[i] % Alphabet.Length];
         return new string(chars);
     }
 }

@@ -1,4 +1,3 @@
-using UrlShortener.Application.Interfaces.Data;
 using UrlShortener.Application.Interfaces.Messaging;
 using UrlShortener.Application.Interfaces.Services;
 using UrlShortener.Domain.Interfaces.Repositories;
@@ -7,33 +6,31 @@ using UrlShortener.Domain.Shared;
 
 namespace UrlShortener.Application.UseCases.ShortenedUrls.Commands.ShortenUrl;
 
-public class ShortenUrlCommandHandler(IUrlShortenerService urlShortenerService, IShortenedUrlRepository shortenedUrlRepository) : ICommandHandler<ShortenUrlCommand, string>
+public class ShortenUrlCommandHandler(
+    IUrlShortenerService urlShortenerService,
+    IShortenedUrlRepository shortenedUrlRepository) : ICommandHandler<ShortenUrlCommand, string>
 {
     public async Task<Result<string>> Handle(ShortenUrlCommand command, CancellationToken cancellationToken)
     {
         if (await shortenedUrlRepository.ExistsByOriginalUrlAsync(command.OriginalUrl))
-        {
             return Result.Failure<string>(new Error(
                 "ShortenedUrl.UrlAlreadyExists",
                 "The provided URL has already been shortened."));
-        }
 
         var shortCode = await urlShortenerService.CreateShortCodeAsync();
         if (shortCode == null)
-        {
             return Result.Failure<string>(new Error(
                 "ShortenedUrl.FailedToCreateShortCode",
                 "Failed to create shortCode."));
-        }
-        
+
         var shortenedUrl = new ShortenedUrl
         {
             OriginalUrl = command.OriginalUrl,
             ShortCode = shortCode,
-            CreatorId = command.CallerId,
+            CreatorId = command.CallerId
         };
-        await  shortenedUrlRepository.AddAsync(shortenedUrl);
-        
+        await shortenedUrlRepository.AddAsync(shortenedUrl);
+
         return Result.Success(shortCode);
     }
 }

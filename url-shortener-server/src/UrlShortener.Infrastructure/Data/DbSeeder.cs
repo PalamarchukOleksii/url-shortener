@@ -15,7 +15,7 @@ public static class DbSeeder
         using var scope = services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
         var hasher = scope.ServiceProvider.GetRequiredService<IHasher>();
-        
+
         var adminRole = await db.Roles.FirstOrDefaultAsync(r => r.Name == "Admin");
         if (adminRole is null)
         {
@@ -45,7 +45,8 @@ public static class DbSeeder
             {
                 Id = adminUserId,
                 Login = "admin",
-                HashedPassword = await hasher.HashAsync("Passw0rd.") ?? throw new Exception("Failed to hash admin password")
+                HashedPassword = await hasher.HashAsync("Passw0rd.") ??
+                                 throw new Exception("Failed to hash admin password")
             };
 
             var adminUserRole = new UserRole
@@ -58,13 +59,13 @@ public static class DbSeeder
             await db.Users.AddAsync(adminUser);
             await db.UserRoles.AddAsync(adminUserRole);
         }
-        
+
         var about = await db.Abouts.FirstOrDefaultAsync(x => x.Language == LanguageCode.En);
         if (about == null)
         {
             about = new About
             {
-                Id = new  AboutId(Guid.NewGuid()),
+                Id = new AboutId(Guid.NewGuid()),
                 Description = "This URL shortener uses a base62 encoding of a unique ID to generate short codes.",
                 LastEditAt = DateTime.UtcNow
             };

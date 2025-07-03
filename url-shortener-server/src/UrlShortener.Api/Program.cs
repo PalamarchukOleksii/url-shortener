@@ -20,7 +20,7 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
     app.MapScalarApiReference();
-    
+
     await DbSeeder.SeedAsync(app.Services);
 }
 

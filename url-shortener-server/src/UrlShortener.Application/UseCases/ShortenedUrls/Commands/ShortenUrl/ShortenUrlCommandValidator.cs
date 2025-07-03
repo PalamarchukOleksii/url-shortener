@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace UrlShortener.Application.UseCases.ShortenedUrls.Commands.ShortenUrl;
 
-public class ShortenUrlCommandValidator:AbstractValidator<ShortenUrlCommand>
+public class ShortenUrlCommandValidator : AbstractValidator<ShortenUrlCommand>
 {
     public ShortenUrlCommandValidator()
     {
@@ -17,7 +17,7 @@ public class ShortenUrlCommandValidator:AbstractValidator<ShortenUrlCommand>
 
     private static bool IsValidUrl(string url)
     {
-        return Uri.TryCreate(url, UriKind.Absolute, out var uriResult) 
+        return Uri.TryCreate(url, UriKind.Absolute, out var uriResult)
                && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
     }
 }

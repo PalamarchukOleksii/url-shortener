@@ -1,5 +1,4 @@
 using MediatR;
-using Microsoft.AspNetCore.Routing;
 using UrlShortener.Api.Abstractions;
 using UrlShortener.Api.Consts;
 using UrlShortener.Application.UseCases.ShortenedUrls.Queries.GetById;

@@ -6,7 +6,7 @@ using UrlShortener.Infrastructure.Data;
 
 namespace UrlShortener.Infrastructure.Repositories;
 
-public class UserRoleRepository(ApplicationDbContext context) :IUserRoleRepository
+public class UserRoleRepository(ApplicationDbContext context) : IUserRoleRepository
 {
     public async Task<UserRole?> GetByIdAsync(UserRoleId id)
     {
@@ -31,10 +31,7 @@ public class UserRoleRepository(ApplicationDbContext context) :IUserRoleReposito
     public async Task DeleteAsync(UserRoleId id)
     {
         var userRole = await context.UserRoles.FirstOrDefaultAsync(x => x.Id == id);
-        if (userRole != null)
-        {
-            context.UserRoles.Remove(userRole);
-        }
+        if (userRole != null) context.UserRoles.Remove(userRole);
     }
 
     public async Task<ICollection<UserRole>> GetByUserIdAsync(UserId userId)

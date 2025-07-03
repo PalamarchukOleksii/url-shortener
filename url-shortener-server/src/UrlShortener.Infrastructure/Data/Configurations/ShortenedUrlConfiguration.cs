@@ -10,7 +10,7 @@ public class ShortenedUrlConfiguration : IEntityTypeConfiguration<ShortenedUrl>
     public void Configure(EntityTypeBuilder<ShortenedUrl> builder)
     {
         builder.HasKey(x => x.Id);
-        
+
         builder.Property(x => x.Id)
             .HasConversion(id => id.Value, value => new ShortenedUrlId(value))
             .ValueGeneratedNever();
@@ -32,10 +32,10 @@ public class ShortenedUrlConfiguration : IEntityTypeConfiguration<ShortenedUrl>
 
         builder.Property(x => x.RedirectCount)
             .IsRequired();
-        
+
         builder.HasIndex(x => x.ShortCode)
             .IsUnique();
-        
+
         builder.HasIndex(x => x.OriginalUrl)
             .IsUnique();
     }
