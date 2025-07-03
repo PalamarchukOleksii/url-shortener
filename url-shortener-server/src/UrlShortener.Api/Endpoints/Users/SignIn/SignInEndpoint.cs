@@ -14,6 +14,11 @@ public class SignInEndpoint : BaseEndpoint, IEndpoint
     {
         app.MapPost("api/users/signin", async (HttpContext http, ISender sender, SignInRequest request) =>
         {
+            if (http.User?.Identity?.IsAuthenticated == true)
+            {
+                return Results.BadRequest(new { Error = "You are already signed in." });
+            }
+            
             var commandRequest = new SignInCommand(request.Login, request.Password);
 
             var response = await sender.Send(commandRequest);
