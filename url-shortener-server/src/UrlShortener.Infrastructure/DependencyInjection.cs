@@ -6,6 +6,7 @@ using UrlShortener.Application.Interfaces.Security;
 using UrlShortener.Application.Interfaces.Services;
 using UrlShortener.Domain.Interfaces.Repositories;
 using UrlShortener.Infrastructure.Data;
+using UrlShortener.Infrastructure.Options;
 using UrlShortener.Infrastructure.Repositories;
 using UrlShortener.Infrastructure.Security;
 using UrlShortener.Infrastructure.Services;
@@ -29,6 +30,8 @@ public static class DependencyInjection
 
         services.AddSingleton<IHasher, Hasher>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        
+        services.Configure<AdminUserOptions>(configuration.GetSection(AdminUserOptions.SectionName));
 
         return services;
     }

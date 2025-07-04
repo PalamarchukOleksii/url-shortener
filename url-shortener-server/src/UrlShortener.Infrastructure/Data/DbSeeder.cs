@@ -1,10 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using UrlShortener.Application.Interfaces.Security;
 using UrlShortener.Domain.Models.AboutModel;
 using UrlShortener.Domain.Models.RoleModel;
 using UrlShortener.Domain.Models.UserModel;
 using UrlShortener.Domain.Models.UserRoleModel;
+using UrlShortener.Infrastructure.Options;
 
 namespace UrlShortener.Infrastructure.Data;
 
@@ -15,6 +17,7 @@ public static class DbSeeder
         using var scope = services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
         var hasher = scope.ServiceProvider.GetRequiredService<IHasher>();
+        var adminOptions = scope.ServiceProvider.GetRequiredService<IOptions<AdminUserOptions>>().Value;
 
         var adminRole = await db.Roles.FirstOrDefaultAsync(r => r.Name == "Admin");
         if (adminRole is null)
@@ -44,8 +47,8 @@ public static class DbSeeder
             var adminUser = new User
             {
                 Id = adminUserId,
-                Login = "admin",
-                HashedPassword = await hasher.HashAsync("Passw0rd.") ??
+                Login = adminOptions.Login,
+                HashedPassword = await hasher.HashAsync(adminOptions.Password) ??
                                  throw new Exception("Failed to hash admin password")
             };
 
