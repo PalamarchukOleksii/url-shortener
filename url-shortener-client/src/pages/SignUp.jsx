@@ -29,7 +29,7 @@ function SignUp() {
             navigate("/signin");
         } catch (error) {
             console.error(error);
-            toast.error(err.response?.data?.message || err.response.data.detail || "Failed to Sign up.");
+            toast.error(error.response?.data?.message || error.response.data.detail || "Failed to Sign up.");
         } finally {
             setLoading(false);
         }
