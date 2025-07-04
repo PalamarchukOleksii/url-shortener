@@ -1,36 +1,74 @@
 # url-shortener
 
-This repository contains the URL Shortener application developed as a test task for Inforce.
+This repository contains the **URL Shortener** application developed as a test task for Inforce.
 
 ## Table of Contents
 
-* [About](#about)
-* [Features](#features)
-* [Technologies Used](#technologies-used)
-* [Getting Started](#getting-started)
-* [Installation](#installation)
+- [About](#about)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
+- [Installation](#installation)
 
-  * [Running with Docker](#running-with-docker)
-  * [Running without Docker](#running-without-docker)
-* [Usage](#usage)
-* [License](#license)
+  - [Running with Docker](#running-with-docker)
+  - [Running without Docker](#running-without-docker)
+
+- [Usage](#usage)
+- [Admin Access](#admin-access)
+- [License](#license)
 
 ## About
 
-The URL Shortener application lets users convert long URLs into shorter, more manageable links. It was developed as a test task for Inforce.
+The URL Shortener lets users convert long URLs into short, shareable links. It was built in alignment with all required features from the Inforce test task specification, including multiple user roles, views, and functionality such as instant updates, detailed info pages, and access control.
 
 ## Features
 
-* Shorten long URLs into compact links.
-* Redirect users from short links to the original URLs.
-* User-friendly interface.
-* Responsive and performant web application.
+Fully implements all test task requirements from the official specification:
+
+- **Authentication System**
+
+  - Admin and regular user login
+  - Role-based access control
+
+- **Short URLs Table View**
+
+  - Displays all shortened URLs
+  - Inline URL creation (for authenticated users)
+  - Soft error handling (e.g., duplicates)
+  - Realtime updates without page reload
+  - Deletion of:
+
+    - Own records (regular users)
+    - Any record (admin)
+
+  - Anonymous users can only **view** the table
+
+- **Short URL Info View**
+
+  - Displays details: `CreatedBy`, `CreatedDate`, and more
+  - Restricted to authorized users only
+
+- **About View**
+
+  - Publicly viewable
+  - Admins can edit the description of the shortening algorithm
+
+- **Shortening Service**
+
+  - Custom logic for generating compact URLs
+  - Ensures uniqueness and persistence
+
+- **Unit Tests**
+
+  - Covers key components (e.g., validation, handlers of usecases)
 
 ## Technologies Used
 
-* **Frontend:** React
-* **Backend:** ASP.NET Core (.NET 9)
-* **Database:** PostgreSQL
+- **Frontend:** React + Vite
+- **Backend:** ASP.NET Core (.NET 9)
+- **Database:** PostgreSQL
+- **Testing:** xUnit, Moq
+- **Other:** MediatR, Entity Framework Core, FluentValidation
 
 ## Getting Started
 
@@ -45,13 +83,12 @@ The URL Shortener application lets users convert long URLs into shorter, more ma
 
 ### Running with Docker
 
-1. Build and start the application:
+```bash
+docker-compose up --build
+```
 
-   ```bash
-   docker-compose up --build
-   ```
-
-2. Open `http://localhost:3000` in your browser.
+- Frontend: [http://localhost:3000](http://localhost:3000)
+- Backend API: [http://localhost:8080](http://localhost:8080)
 
 ---
 
@@ -59,63 +96,57 @@ The URL Shortener application lets users convert long URLs into shorter, more ma
 
 #### Prerequisites
 
-* [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
-* [Node.js](https://nodejs.org/) + [npm](https://www.npmjs.com/)
-* PostgreSQL running and accessible
+- [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
+- [Node.js](https://nodejs.org/) + [npm](https://www.npmjs.com/)
+- PostgreSQL running locally
 
 #### Backend (ASP.NET Core)
 
-1. Navigate to the API project directory:
+```bash
+cd url-shortener-server/src/UrlShortener.Api
+```
 
-   ```bash
-   cd url-shortener-server/src/UrlShortener.Api
-   ```
+Update `appsettings.json` with your DB connection:
 
-2. Open `appsettings.json` and configure the PostgreSQL connection string:
+```json
+"ConnectionStrings": {
+  "DefaultConnection": "Host=localhost;Port=5432;Database=url_shortener_db;Username=your_username;Password=your_password"
+}
+```
 
-   ```json
-   "ConnectionStrings": {
-     "DefaultConnection": "Host=localhost;Port=5432;Database=url_shortener_db;Username=your_username;Password=your_password"
-   }
-   ```
+Run the backend:
 
-3. Start the server:
-
-   ```bash
-   dotnet run
-   ```
-
-   The backend will be available at `http://localhost:5180`.
+```bash
+dotnet run
+```
 
 #### Frontend (React + Vite)
 
-1. Navigate to the frontend app:
+```bash
+cd ../../../url-shortener-client
+npm install
+npm run dev
+```
 
-   ```bash
-   cd ../../../url-shortener-client
-   ```
-
-2. Install dependencies:
-
-   ```bash
-   npm install
-   ```
-
-3. Start the development server:
-
-   ```bash
-   npm run dev
-   ```
-
-4. Open `http://localhost:3000` in your browser.
+Visit: [http://localhost:3000](http://localhost:3000)
 
 ---
 
 ## Usage
 
-1. Visit `http://localhost:3000`.
-2. Enter a long URL and click "Shorten URL".
-3. Use the generated short link to access the original URL.
+1. Log in with admin or user credentials.
+2. Shorten URLs from the main table view.
+3. View info or delete entries depending on your permissions.
+4. View and (if admin) edit the algorithm description in the About section.
+
+## Admin Access
+
+An admin user is automatically seeded:
+
+```
+Username: admin
+Password: Passw0rd.
+```
 
 ## License
 
