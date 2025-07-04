@@ -66,46 +66,59 @@ function About() {
         setEditing(false);
     };
 
-    if (loading) return (
-        <div>
-            <h1>About</h1>
-            <p>Loading...</p>
-        </div>);
+    if (loading) {
+        return (
+            <div className="max-w-2xl mx-auto mt-10 p-4 text-center">
+                <h1 className="text-2xl font-semibold mb-4">About</h1>
+                <p className="text-gray-500">Loading...</p>
+            </div>
+        );
+    }
 
     return (
-        <div>
-            <h1>About</h1>
+        <div className="max-w-2xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md border">
+            <h1 className="text-2xl font-bold mb-4">About</h1>
 
             {isAdmin ? (
                 editing ? (
-                    <>
-          <textarea
-              rows={6}
-              cols={60}
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              disabled={saving}
-          />
-                        <br/>
-                        <button onClick={handleSave} disabled={saving}>
-                            {saving ? "Saving..." : "Save"}
-                        </button>
-                        <button
-                            onClick={handleCancel}
+                    <div className="space-y-4">
+                        <textarea
+                            rows={6}
+                            className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
                             disabled={saving}
-                            style={{marginLeft: 8}}
-                        >
-                            Cancel
-                        </button>
-                    </>
+                        />
+                        <div className="flex gap-3">
+                            <button
+                                onClick={handleSave}
+                                disabled={saving}
+                                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50"
+                            >
+                                {saving ? "Saving..." : "Save"}
+                            </button>
+                            <button
+                                onClick={handleCancel}
+                                disabled={saving}
+                                className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 disabled:opacity-50"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
                 ) : (
                     <>
-                        <p>{aboutData?.description}</p>
-                        <button onClick={() => setEditing(true)}>Edit</button>
+                        <p className="text-gray-700 mb-4">{aboutData?.description}</p>
+                        <button
+                            onClick={() => setEditing(true)}
+                            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                        >
+                            Edit
+                        </button>
                     </>
                 )
             ) : (
-                <p>{aboutData?.description}</p>
+                <p className="text-gray-700">{aboutData?.description}</p>
             )}
         </div>
     );

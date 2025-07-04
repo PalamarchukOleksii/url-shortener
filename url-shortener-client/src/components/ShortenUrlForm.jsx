@@ -24,27 +24,40 @@ const ShortenUrlForm = ({onCreated}) => {
             setOriginalUrl("");
         } catch (err) {
             console.error(err);
-            toast.error(err.response?.data?.message || err.response.data.detail || "Failed to shorten URL.");
-
+            toast.error(
+                err.response?.data?.message ||
+                err.response?.data?.detail ||
+                "Failed to shorten URL."
+            );
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <form onSubmit={handleSubmit} style={{marginBottom: "1rem"}}>
+        <form
+            onSubmit={handleSubmit}
+            className="flex max-w-4xl mx-auto gap-2 mb-4"
+        >
             <input
                 type="url"
                 placeholder="Enter URL to shorten"
                 value={originalUrl}
                 onChange={(e) => setOriginalUrl(e.target.value)}
                 required
-                style={{width: "300px", marginRight: "0.5rem"}}
+                className="flex-grow px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
             />
-            <button type="submit" disabled={loading}>
+            <button
+                type="submit"
+                disabled={loading}
+                className={`w-32 rounded-md text-white transition ${
+                    loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
+                }`}
+            >
                 {loading ? "Shortening..." : "Shorten URL"}
             </button>
         </form>
+
     );
 };
 

@@ -18,7 +18,13 @@ function ShortenUrlDetails() {
         axiosBase
             .get(`api/shortenedurls/${id}`)
             .then((res) => setUrlDetails(res.data))
-            .catch((err) => toast.error(err.response?.data?.message || err.response.data.detail || "Failed to load details about shortened Url."));
+            .catch((err) =>
+                toast.error(
+                    err.response?.data?.message ||
+                    err.response?.data?.detail ||
+                    "Failed to load details about shortened URL."
+                )
+            );
     }, [id]);
 
     useEffect(() => {
@@ -50,53 +56,80 @@ function ShortenUrlDetails() {
         }
     };
 
-    if (!urlDetails) return <div>Loading...</div>;
+    if (!urlDetails) return <div className="p-6 text-gray-600">Loading...</div>;
 
     return (
-        <div>
-            <h1>Shortened URL Details</h1>
-            <p>
-                <strong>Original URL:</strong>{" "}
-                <a
-                    href={urlDetails.originalUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
+        <div className="p-6 max-w-3xl mx-auto">
+            <div className="mb-4">
+                <button
+                    onClick={() => navigate(-1)}
+                    className="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition"
                 >
-                    {urlDetails.originalUrl}
-                </a>
-            </p>
-            <p>
-                <strong>Short URL:</strong>{" "}
-                <a
-                    href={`${BACKEND_BASE_URL}/${urlDetails.shortCode}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    {`${BACKEND_BASE_URL}/${urlDetails.shortCode}`}
-                </a>
-            </p>
-            <p>
-                <strong>Short Code:</strong> {urlDetails.shortCode}
-            </p>
-            <p>
-                <strong>Creator Login:</strong> {urlDetails.creatorLogin}
-            </p>
-            <p>
-                <strong>Creator ID:</strong> {urlDetails.creatorId.value}
-            </p>
-            <p>
-                <strong>Created At:</strong>{" "}
-                {new Date(urlDetails.createdAt).toLocaleString()}
-            </p>
-            <p>
-                <strong>Redirect Count:</strong> {urlDetails.redirectCount}
-            </p>
-
-            {canDelete && (
-                <button style={{marginLeft: "0.5rem"}} onClick={handleDelete}>
-                    Delete
+                    ← Go Back
                 </button>
-            )}
+            </div>
+
+            <h1 className="text-3xl font-bold mb-6">Shortened URL Details</h1>
+
+            <div className="space-y-4 bg-white shadow-md rounded-xl p-6 border">
+                <p>
+                    <span className="font-semibold">Original URL:</span>{" "}
+                    <a
+                        href={urlDetails.originalUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 underline break-all"
+                    >
+                        {urlDetails.originalUrl}
+                    </a>
+                </p>
+
+                <p>
+                    <span className="font-semibold">Short URL:</span>{" "}
+                    <a
+                        href={`${BACKEND_BASE_URL}/${urlDetails.shortCode}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 underline break-all"
+                    >
+                        {`${BACKEND_BASE_URL}/${urlDetails.shortCode}`}
+                    </a>
+                </p>
+
+                <p>
+                    <span className="font-semibold">Short Code:</span>{" "}
+                    {urlDetails.shortCode}
+                </p>
+
+                <p>
+                    <span className="font-semibold">Creator Login:</span>{" "}
+                    {urlDetails.creatorLogin}
+                </p>
+
+                <p>
+                    <span className="font-semibold">Creator ID:</span>{" "}
+                    {urlDetails.creatorId?.value}
+                </p>
+
+                <p>
+                    <span className="font-semibold">Created At:</span>{" "}
+                    {new Date(urlDetails.createdAt).toLocaleString()}
+                </p>
+
+                <p>
+                    <span className="font-semibold">Redirect Count:</span>{" "}
+                    {urlDetails.redirectCount}
+                </p>
+
+                {canDelete && (
+                    <button
+                        onClick={handleDelete}
+                        className="mt-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
+                    >
+                        Delete
+                    </button>
+                )}
+            </div>
         </div>
     );
 }

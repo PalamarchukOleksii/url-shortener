@@ -36,36 +36,48 @@ function ShortenUrlItem({url, onDelete}) {
     };
 
     return (
-        <li>
-            <p>
-                <strong>Original URL:</strong>{" "}
-                <a href={url.originalUrl} target="_blank" rel="noopener noreferrer">
+        <li className="bg-white shadow-sm rounded-xl p-4 mb-4 border border-gray-200">
+            <p className="mb-2 text-sm">
+                <span className="font-semibold">Original URL:</span>
+                <a
+                    href={url.originalUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline break-all"
+                >
                     {url.originalUrl}
                 </a>
             </p>
 
-            <p>
-                <strong>Short URL:</strong>{" "}
+            <p className="mb-4 text-sm">
+                <span className="font-semibold">Short URL:</span>
                 <a
                     href={`${BACKEND_BASE_URL}/${url.shortCode}`}
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline break-all"
                 >
                     {`${BACKEND_BASE_URL}/${url.shortCode}`}
                 </a>
             </p>
 
             {isAuthenticated && (
-                <>
-                    <button onClick={() => navigate(`/shortenedurls/${url.id.value}`)}>
+                <div className="flex gap-2">
+                    <button
+                        onClick={() => navigate(`/shortenedurls/${url.id.value}`)}
+                        className="px-3 py-1 text-sm bg-blue-500 hover:bg-blue-600 text-white rounded-md"
+                    >
                         See Details
                     </button>
                     {canDelete && (
-                        <button style={{marginLeft: "0.5rem"}} onClick={handleDelete}>
+                        <button
+                            onClick={handleDelete}
+                            className="px-3 py-1 text-sm bg-red-500 hover:bg-red-600 text-white rounded-md"
+                        >
                             Delete
                         </button>
                     )}
-                </>
+                </div>
             )}
         </li>
     );

@@ -10,6 +10,7 @@ function Home() {
     const [urls, setUrls] = useState([]);
     const [page, setPage] = useState(1);
     const [count, setCount] = useState(10);
+    const [hasNextPage, setHasNextPage] = useState(false);
 
     useEffect(() => {
         axiosBase
@@ -24,8 +25,20 @@ function Home() {
                 toast.error(
                     err.response?.data?.message ||
                     err.response?.data?.detail ||
-                    "Failed to load shortened Urls."
+                    "Failed to load shortened URLs."
                 );
+            });
+
+        axiosBase
+            .get("api/shortenedurls", {
+                params: {page: page + 1, count},
+            })
+            .then((response) => {
+                setHasNextPage(response.data.length > 0);
+            })
+            .catch((err) => {
+                console.error("Failed to check next page", err);
+                setHasNextPage(false); // fallback
             });
     }, [page, count]);
 
@@ -48,35 +61,43 @@ function Home() {
         setPage(1);
     };
 
-    if (!urls) return (
-        <div>
-            <h1>Home</h1>
-            <p>Loading...</p>
-        </div>
-    );
+    if (!urls) {
+        return (
+            <div className="p-6">
+                <h1 className="text-2xl font-bold mb-4">Home</h1>
+                <p className="text-gray-500">Loading...</p>
+            </div>
+        );
+    }
 
     return (
-        <div>
-            <h1>Home</h1>
+        <div className="p-6 max-w-4xl mx-auto">
+            <h1 className="text-3xl font-bold mb-6">Home</h1>
 
-            {isAuthenticated && <ShortenUrlForm onCreated={handleAddUrl}/>}
+            {isAuthenticated && (
+                <div className="mb-6">
+                    <ShortenUrlForm onCreated={handleAddUrl}/>
+                </div>
+            )}
 
-            <label htmlFor="itemsPerPage" style={{marginRight: "0.5rem"}}>
-                Items per page:
-            </label>
-            <select
-                id="itemsPerPage"
-                value={count}
-                onChange={handleCountChange}
-                style={{marginBottom: "1rem"}}
-            >
-                <option value={5}>5</option>
-                <option value={10}>10</option>
-                <option value={20}>20</option>
-                <option value={50}>50</option>
-            </select>
+            <div className="flex items-center mb-4 gap-2">
+                <label htmlFor="itemsPerPage" className="text-sm font-medium">
+                    Items per page:
+                </label>
+                <select
+                    id="itemsPerPage"
+                    value={count}
+                    onChange={handleCountChange}
+                    className="px-2 py-1 border rounded-md text-sm"
+                >
+                    <option value={5}>5</option>
+                    <option value={10}>10</option>
+                    <option value={20}>20</option>
+                    <option value={50}>50</option>
+                </select>
+            </div>
 
-            <ul>
+            <ul className="space-y-4">
                 {urls.map((url) => (
                     <ShortenUrlItem
                         key={url.id.value}
@@ -88,12 +109,20 @@ function Home() {
                 ))}
             </ul>
 
-            <div style={{marginTop: "1rem"}}>
-                <button onClick={handlePrev} disabled={page === 1}>
+            <div className="mt-6 flex items-center justify-center gap-4">
+                <button
+                    onClick={handlePrev}
+                    disabled={page === 1}
+                    className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
+                >
                     Previous
                 </button>
-                <span style={{margin: "0 1rem"}}>Page: {page}</span>
-                <button onClick={handleNext} disabled={urls.length <= count}>
+                <span className="text-sm text-gray-600">Page: {page}</span>
+                <button
+                    onClick={handleNext}
+                    disabled={!hasNextPage}
+                    className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
+                >
                     Next
                 </button>
             </div>
