@@ -1,5 +1,10 @@
 import './App.css'
 import {Route, Routes} from "react-router-dom";
+import Home from "./pages/Home.jsx";
+import About from "./pages/About.jsx";
+import SignIn from "./pages/SignIn.jsx";
+import SignUp from "./pages/SignUp.jsx";
+import ShortenUrlDetails from "./pages/ShortenUrlDetails.jsx";
 
 function App() {
 
@@ -9,6 +14,7 @@ function App() {
             <Route path="/about" element={<About/>}/>
             <Route path="/signin" element={<SignIn/>}/>
             <Route path="/signup" element={<SignUp/>}/>
+            <Route path="/shortenedurls/:id" element={<ShortenUrlDetails/>}/>
         </Routes>
     )
 }
