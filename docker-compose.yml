@@ -1,7 +1,7 @@
 services:
   postgres-db:
     image: docker.io/library/postgres:latest
-    container_name: postgres-urlshortener
+    container_name: urlshortener-postgres
     environment:
       POSTGRES_USER: urlshortener_user
       POSTGRES_PASSWORD: urlshortener_pass
@@ -9,7 +9,41 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - urlshortener-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U urlshortener_user -d urlshortener_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ./url-shortener-server
+      dockerfile: src/UrlShortener.Api/Dockerfile
+    container_name: urlshortener-api
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=postgres-db;Port=5432;Database=urlshortener_db;Username=urlshortener_user;Password=urlshortener_pass;Pooling=true;Trust Server Certificate=true;
+      - AdminUser__Login=admin
+      - AdminUser__Password=Passw0rd.
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+    restart: on-failure
+
+  client:
+    build:
+      context: ./url-shortener-client
+      dockerfile: Dockerfile
+    container_name: urlshortener-client
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_BACKEND_BASE_URL=http://urlshortener-api:8080
+    depends_on:
+      - api
 
 volumes:
-  pgdata:
+  urlshortener-data:
