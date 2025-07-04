@@ -3,7 +3,7 @@ using UrlShortener.Api.Abstractions;
 using UrlShortener.Api.Consts;
 using UrlShortener.Application.UseCases.Abouts.Queries.GetByLanguageCode;
 
-namespace UrlShortener.Api.Endpoints.About.GetAboutByLanguageCode;
+namespace UrlShortener.Api.Endpoints.About.GetByLanguageCode;
 
 public class GetByLanguageCodeEndpoint : BaseEndpoint, IEndpoint
 {

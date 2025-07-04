@@ -6,7 +6,7 @@ using UrlShortener.Domain.Models.RoleModel;
 using UrlShortener.Domain.Models.UserModel;
 using UrlShortener.Domain.Models.UserRoleModel;
 
-namespace UrlShortener.Tests.UseCases.Users.Commands;
+namespace UrlShortener.Tests.UseCases.Users.Commands.SignIn;
 
 public class SignInCommandHandlerTests
 {
@@ -27,7 +27,7 @@ public class SignInCommandHandlerTests
     [Fact]
     public async Task Handle_Should_Return_Success_When_Credentials_Are_Valid()
     {
-        // Arrange
+        
         var userId = new UserId(Guid.NewGuid());
         var user = new User { Id = userId, Login = "test", HashedPassword = "hashedpass" };
 
@@ -38,12 +38,12 @@ public class SignInCommandHandlerTests
             new() { Role = new Role { Name = "Admin" } }
         });
 
-        var command = new SignInCommand("test", "123456");
+        var command = new Application.UseCases.Users.Command.SignIn.SignInCommand("test", "123456");
 
-        // Act
+        
         var result = await _handler.Handle(command, CancellationToken.None);
 
-        // Assert
+        
         Assert.True(result.IsSuccess);
         Assert.Equal("test", result.Value.Login);
         Assert.Contains("Admin", result.Value.Roles.Select(r => r.Name));
@@ -54,7 +54,7 @@ public class SignInCommandHandlerTests
     {
         _userRepositoryMock.Setup(r => r.GetByLoginAsync("notfound")).ReturnsAsync(default(User));
 
-        var command = new SignInCommand("notfound", "123456");
+        var command = new Application.UseCases.Users.Command.SignIn.SignInCommand("notfound", "123456");
 
         var result = await _handler.Handle(command, CancellationToken.None);
 
@@ -70,7 +70,7 @@ public class SignInCommandHandlerTests
         _userRepositoryMock.Setup(r => r.GetByLoginAsync("test")).ReturnsAsync(user);
         _hasherMock.Setup(h => h.VerifyAsync("wrong", "hashedpass")).ReturnsAsync(false);
 
-        var command = new SignInCommand("test", "wrong");
+        var command = new Application.UseCases.Users.Command.SignIn.SignInCommand("test", "wrong");
 
         var result = await _handler.Handle(command, CancellationToken.None);
 

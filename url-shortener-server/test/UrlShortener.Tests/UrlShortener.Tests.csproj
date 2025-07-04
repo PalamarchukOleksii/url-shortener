@@ -23,8 +23,4 @@
         <ProjectReference Include="..\..\src\UrlShortener.Application\UrlShortener.Application.csproj"/>
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="UseCases\ShortenedUrls\Commands\" />
-    </ItemGroup>
-
 </Project>

@@ -1,7 +1,6 @@
 using FluentValidation;
-using UrlShortener.Application.UseCases.Abouts.Queries.GetByLanguageCode;
 
-namespace UrlShortener.Application.UseCases.Abouts.Queries.GetAboutByLanguageCode;
+namespace UrlShortener.Application.UseCases.Abouts.Queries.GetByLanguageCode;
 
 public class GetByLanguageCodeQueryValidator : AbstractValidator<GetByLanguageCodeQuery>
 {
