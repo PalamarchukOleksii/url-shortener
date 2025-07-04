@@ -38,7 +38,7 @@ function ShortenUrlItem({url, onDelete}) {
     return (
         <li className="bg-white shadow-sm rounded-xl p-4 mb-4 border border-gray-200">
             <p className="mb-2 text-sm">
-                <span className="font-semibold">Original URL:</span>
+                <span className="font-semibold">Original URL: </span>
                 <a
                     href={url.originalUrl}
                     target="_blank"
@@ -50,7 +50,7 @@ function ShortenUrlItem({url, onDelete}) {
             </p>
 
             <p className="mb-4 text-sm">
-                <span className="font-semibold">Short URL:</span>
+                <span className="font-semibold">Short URL: </span>
                 <a
                     href={`${BACKEND_BASE_URL}/${url.shortCode}`}
                     target="_blank"

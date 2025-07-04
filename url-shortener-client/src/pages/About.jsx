@@ -76,7 +76,7 @@ function About() {
     }
 
     return (
-        <div className="max-w-2xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md border">
+        <div className="max-w-2xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md border border-gray-200">
             <h1 className="text-2xl font-bold mb-4">About</h1>
 
             {isAdmin ? (

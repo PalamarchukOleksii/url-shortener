@@ -7,6 +7,8 @@ function SignUp() {
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
     const [passwordConfirm, setPasswordConfirm] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
+    const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -40,7 +42,7 @@ function SignUp() {
     };
 
     return (
-        <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md border">
+        <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md border border-gray-200">
             <h1 className="text-2xl font-bold mb-6 text-center">Sign Up</h1>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
@@ -50,29 +52,52 @@ function SignUp() {
                         value={login}
                         onChange={(e) => setLogin(e.target.value)}
                         required
-                        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
+
                 <div>
                     <label className="block mb-1 font-medium">Password</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
+                    <div className="relative">
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                        <button
+                            type="button"
+                            onClick={() => setShowPassword((prev) => !prev)}
+                            className="absolute right-2 top-2 text-sm text-blue-600 hover:text-blue-800 select-none"
+                            tabIndex={-1}
+                        >
+                            {showPassword ? "Hide" : "Show"}
+                        </button>
+                    </div>
                 </div>
+
                 <div>
                     <label className="block mb-1 font-medium">Confirm Password</label>
-                    <input
-                        type="password"
-                        value={passwordConfirm}
-                        onChange={(e) => setPasswordConfirm(e.target.value)}
-                        required
-                        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
+                    <div className="relative">
+                        <input
+                            type={showPasswordConfirm ? "text" : "password"}
+                            value={passwordConfirm}
+                            onChange={(e) => setPasswordConfirm(e.target.value)}
+                            required
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                        <button
+                            type="button"
+                            onClick={() => setShowPasswordConfirm((prev) => !prev)}
+                            className="absolute right-2 top-2 text-sm text-blue-600 hover:text-blue-800 select-none"
+                            tabIndex={-1}
+                        >
+                            {showPasswordConfirm ? "Hide" : "Show"}
+                        </button>
+                    </div>
                 </div>
+
                 <button
                     type="submit"
                     disabled={loading}

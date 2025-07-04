@@ -88,7 +88,7 @@ function Home() {
                     id="itemsPerPage"
                     value={count}
                     onChange={handleCountChange}
-                    className="px-2 py-1 border rounded-md text-sm"
+                    className="px-2 py-1 border border-gray-300 rounded-md text-sm"
                 >
                     <option value={5}>5</option>
                     <option value={10}>10</option>
