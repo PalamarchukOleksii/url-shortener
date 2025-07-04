@@ -1,5 +1,4 @@
 import axios from "axios";
-import {toast} from "react-toastify";
 import {BACKEND_BASE_URL} from "../utils/constants.js";
 
 const axiosBase = axios.create({
@@ -11,7 +10,7 @@ const axiosBase = axios.create({
     },
 });
 
-axiosBase.interceptors.response.use(
+/*axiosBase.interceptors.response.use(
     (response) => response,
     (error) => {
         if (error.response) {
@@ -40,6 +39,6 @@ axiosBase.interceptors.response.use(
 
         return Promise.reject(error);
     }
-);
+);*/
 
 export default axiosBase;
