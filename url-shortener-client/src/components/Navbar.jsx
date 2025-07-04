@@ -1,4 +1,4 @@
-import {NavLink, useNavigate} from "react-router-dom"; // adjust path if needed
+import {NavLink, useNavigate} from "react-router-dom";
 import {useAuth} from "../contexts/auth/useAuth.js";
 import axiosBase from "../api/axiosBase.js";
 

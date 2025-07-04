@@ -1,12 +1,16 @@
 import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import axiosBase from "../api/axiosBase";
 import {BACKEND_BASE_URL} from "../utils/constants.js";
 import {toast} from "react-toastify";
+import {useAuth} from "../contexts/auth/useAuth.js";
 
 function ShortenUrlDetails() {
     const {id} = useParams();
     const [urlDetails, setUrlDetails] = useState(null);
+    const navigate = useNavigate();
+    const {user, isAuthenticated} = useAuth();
+    const [canDelete, setCanDelete] = useState(false);
 
     useEffect(() => {
         if (!id) return;
@@ -14,8 +18,37 @@ function ShortenUrlDetails() {
         axiosBase
             .get(`api/shortenedurls/${id}`)
             .then((res) => setUrlDetails(res.data))
-            .catch((error) => toast.error(err.response?.data?.message || err.response.data.detail || "Failed to load details about shortened Url."));
+            .catch((err) => toast.error(err.response?.data?.message || err.response.data.detail || "Failed to load details about shortened Url."));
     }, [id]);
+
+    useEffect(() => {
+        if (!isAuthenticated || !user || !urlDetails) {
+            setCanDelete(false);
+            return;
+        }
+
+        const isOwner = user.id === urlDetails.creatorId?.value;
+        const isAdmin = user.roles?.includes("Admin");
+
+        setCanDelete(isOwner || isAdmin);
+    }, [isAuthenticated, user, urlDetails]);
+
+    const handleDelete = async () => {
+        if (!window.confirm("Are you sure you want to delete this URL?")) return;
+
+        try {
+            await axiosBase.delete(`api/shortenedurls/${urlDetails.id.value}`);
+            toast.success("URL deleted.");
+            navigate(-1);
+        } catch (err) {
+            console.error(err);
+            toast.error(
+                err.response?.data?.message ||
+                err.response?.data?.detail ||
+                "Failed to delete URL."
+            );
+        }
+    };
 
     if (!urlDetails) return <div>Loading...</div>;
 
@@ -33,9 +66,6 @@ function ShortenUrlDetails() {
                 </a>
             </p>
             <p>
-                <strong>Short Code:</strong> {urlDetails.shortCode}
-            </p>
-            <p>
                 <strong>Short URL:</strong>{" "}
                 <a
                     href={`${BACKEND_BASE_URL}/${urlDetails.shortCode}`}
@@ -44,6 +74,12 @@ function ShortenUrlDetails() {
                 >
                     {`${BACKEND_BASE_URL}/${urlDetails.shortCode}`}
                 </a>
+            </p>
+            <p>
+                <strong>Short Code:</strong> {urlDetails.shortCode}
+            </p>
+            <p>
+                <strong>Creator Login:</strong> {urlDetails.creatorLogin}
             </p>
             <p>
                 <strong>Creator ID:</strong> {urlDetails.creatorId.value}
@@ -55,6 +91,12 @@ function ShortenUrlDetails() {
             <p>
                 <strong>Redirect Count:</strong> {urlDetails.redirectCount}
             </p>
+
+            {canDelete && (
+                <button style={{marginLeft: "0.5rem"}} onClick={handleDelete}>
+                    Delete
+                </button>
+            )}
         </div>
     );
 }

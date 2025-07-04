@@ -62,7 +62,6 @@ function About() {
     };
 
     const handleCancel = () => {
-        // revert to saved description and exit editing
         setDescription(aboutData?.description || "");
         setEditing(false);
     };
