@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
 import axiosBase from "../api/axiosBase";
 import {BACKEND_BASE_URL} from "../utils/constants.js";
+import {toast} from "react-toastify";
 
 function Home() {
     const [urls, setUrls] = useState([]);
-    const [error, setError] = useState(null);
     const [page, setPage] = useState(1);
     const count = 10; // items per page
 
@@ -15,11 +15,10 @@ function Home() {
             })
             .then((response) => {
                 setUrls(response.data);
-                setError(null);
             })
             .catch((err) => {
                 console.error(err);
-                setError("Failed to load shortened URLs.");
+                toast.error(err.response.data.message);
             });
     }, [page]);
 
@@ -30,8 +29,7 @@ function Home() {
     const handleNext = () => {
         if (urls.length === count) setPage((p) => p + 1);
     };
-
-    if (error) return <div>Error: {error}</div>;
+    
     if (!urls) return <div>Loading...</div>;
 
     return (

@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import axiosBase from "../api/axiosBase.js";
+import {toast} from "react-toastify";
 
 function About() {
     const [aboutData, setAboutData] = useState(null);
-    const [error, setError] = useState(null);
 
     useEffect(() => {
         const languageCode = "en";
@@ -12,13 +12,12 @@ function About() {
             .then((response) => setAboutData(response.data))
             .catch((err) => {
                 console.error(err);
-                setError("Failed to load about info.");
+                toast.error(err.response.data.message);
             });
 
 
     }, []);
 
-    if (error) return <div>Error: {error}</div>;
     if (!aboutData) return <div>Loading...</div>;
 
     return (
