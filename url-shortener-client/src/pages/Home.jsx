@@ -2,8 +2,11 @@ import React, {useEffect, useState} from "react";
 import axiosBase from "../api/axiosBase";
 import {toast} from "react-toastify";
 import ShortenUrlItem from "../components/ShortenedUrlItem.jsx";
+import ShortenUrlForm from "../components/ShortenUrlForm.jsx";
+import {useAuth} from "../contexts/auth/useAuth.js";
 
 function Home() {
+    const {isAuthenticated} = useAuth();
     const [urls, setUrls] = useState([]);
     const [page, setPage] = useState(1);
     const count = 10;
@@ -30,11 +33,24 @@ function Home() {
         if (urls.length === count) setPage((p) => p + 1);
     };
 
-    if (!urls) return <div>Loading...</div>;
+    const handleAddUrl = (newUrl) => {
+        if (page === 1) {
+            setUrls((prev) => [newUrl, ...prev.slice(0, count - 1)]);
+        }
+    };
+
+    if (!urls) return (
+        <div>
+            <h1>Home</h1>
+            <p>Loading...</p>
+        </div>);
 
     return (
         <div>
             <h1>Home</h1>
+
+            {isAuthenticated && <ShortenUrlForm onCreated={handleAddUrl}/>}
+
             <ul>
                 {urls.map((url) => (
                     <ShortenUrlItem
