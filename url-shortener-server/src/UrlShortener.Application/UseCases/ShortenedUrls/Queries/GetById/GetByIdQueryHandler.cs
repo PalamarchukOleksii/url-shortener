@@ -22,6 +22,7 @@ public class GetByIdQueryHandler(IShortenedUrlRepository shortenedUrlRepository)
             OriginalUrl = shortenedUrl.OriginalUrl,
             ShortCode = shortenedUrl.ShortCode,
             CreatorId = shortenedUrl.CreatorId,
+            CreatorLogin = shortenedUrl.Creator.Login,
             CreatedAt = shortenedUrl.CreatedAt,
             RedirectCount = shortenedUrl.RedirectCount
         };

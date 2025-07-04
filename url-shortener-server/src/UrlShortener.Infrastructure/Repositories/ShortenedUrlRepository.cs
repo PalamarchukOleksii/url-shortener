@@ -9,7 +9,7 @@ public class ShortenedUrlRepository(ApplicationDbContext context) : IShortenedUr
 {
     public async Task<ShortenedUrl?> GetByIdAsync(ShortenedUrlId id)
     {
-        return await context.ShortenedUrls.FirstOrDefaultAsync(x => x.Id == id);
+        return await context.ShortenedUrls.Include(x => x.Creator).FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<IEnumerable<ShortenedUrl>> GetAllAsync()
