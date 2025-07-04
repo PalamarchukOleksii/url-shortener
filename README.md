@@ -7,9 +7,11 @@ This repository contains the URL Shortener application developed as a test task 
 * [About](#about)
 * [Features](#features)
 * [Technologies Used](#technologies-used)
+* [Getting Started](#getting-started)
 * [Installation](#installation)
 
   * [Running with Docker](#running-with-docker)
+  * [Running without Docker](#running-without-docker)
 * [Usage](#usage)
 * [License](#license)
 
@@ -27,12 +29,10 @@ The URL Shortener application lets users convert long URLs into shorter, more ma
 ## Technologies Used
 
 * **Frontend:** React
-* **Backend:** ASP.NET Core (C#)
+* **Backend:** ASP.NET Core (.NET 9)
 * **Database:** PostgreSQL
 
-## Installation
-
-### Running with Docker
+## Getting Started
 
 1. Clone the repository and navigate into it:
 
@@ -41,13 +41,75 @@ The URL Shortener application lets users convert long URLs into shorter, more ma
    cd url-shortener
    ```
 
-2. Build and start the application:
+## Installation
+
+### Running with Docker
+
+1. Build and start the application:
 
    ```bash
    docker-compose up --build
    ```
 
-3. Open `http://localhost:3000` in your browser.
+2. Open `http://localhost:3000` in your browser.
+
+---
+
+### Running without Docker
+
+#### Prerequisites
+
+* [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
+* [Node.js](https://nodejs.org/) + [npm](https://www.npmjs.com/)
+* PostgreSQL running and accessible
+
+#### Backend (ASP.NET Core)
+
+1. Navigate to the API project directory:
+
+   ```bash
+   cd url-shortener-server/src/UrlShortener.Api
+   ```
+
+2. Open `appsettings.json` and configure the PostgreSQL connection string:
+
+   ```json
+   "ConnectionStrings": {
+     "DefaultConnection": "Host=localhost;Port=5432;Database=url_shortener_db;Username=your_username;Password=your_password"
+   }
+   ```
+
+3. Start the server:
+
+   ```bash
+   dotnet run
+   ```
+
+   The backend will be available at `http://localhost:5180`.
+
+#### Frontend (React + Vite)
+
+1. Navigate to the frontend app:
+
+   ```bash
+   cd ../../../url-shortener-client
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+4. Open `http://localhost:3000` in your browser.
+
+---
 
 ## Usage
 
