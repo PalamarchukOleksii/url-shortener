@@ -29,7 +29,7 @@ function Home() {
     const handleNext = () => {
         if (urls.length === count) setPage((p) => p + 1);
     };
-    
+
     if (!urls) return <div>Loading...</div>;
 
     return (
@@ -37,7 +37,7 @@ function Home() {
             <h1>Home</h1>
             <ul>
                 {urls.map((url) => (
-                    <li key={url.id}>
+                    <li key={url.id.value}>
                         <a href={url.originalUrl} target="_blank" rel="noopener noreferrer">
                             {url.originalUrl}
                         </a>{" "}
