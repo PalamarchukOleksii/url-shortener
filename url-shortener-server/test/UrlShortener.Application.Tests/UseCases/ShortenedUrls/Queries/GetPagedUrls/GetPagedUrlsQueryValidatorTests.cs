@@ -1,7 +1,7 @@
 using FluentValidation.TestHelper;
 using UrlShortener.Application.UseCases.ShortenedUrls.Queries.GetPagedUrls;
 
-namespace UrlShortener.Tests.UseCases.ShortenedUrls.Queries.GetPagedUrls;
+namespace UrlShortener.Application.Tests.UseCases.ShortenedUrls.Queries.GetPagedUrls;
 
 public class GetPagedUrlsQueryValidatorTests
 {

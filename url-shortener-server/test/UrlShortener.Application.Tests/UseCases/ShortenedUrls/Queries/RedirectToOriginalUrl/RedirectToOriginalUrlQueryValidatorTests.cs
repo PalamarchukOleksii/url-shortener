@@ -1,7 +1,7 @@
 using FluentValidation.TestHelper;
 using UrlShortener.Application.UseCases.ShortenedUrls.Queries.RedirectToOriginalUrl;
 
-namespace UrlShortener.Tests.UseCases.ShortenedUrls.Queries.RedirectToOriginalUrl;
+namespace UrlShortener.Application.Tests.UseCases.ShortenedUrls.Queries.RedirectToOriginalUrl;
 
 public class RedirectToOriginalUrlQueryValidatorTests
 {

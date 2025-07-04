@@ -6,7 +6,7 @@ using UrlShortener.Domain.Models.RoleModel;
 using UrlShortener.Domain.Models.UserModel;
 using UrlShortener.Domain.Models.UserRoleModel;
 
-namespace UrlShortener.Tests.UseCases.Users.Commands.SignUp;
+namespace UrlShortener.Application.Tests.UseCases.Users.Commands.SignUp;
 
 public class SignUpCommandHandlerTests
 {

@@ -4,7 +4,7 @@ using UrlShortener.Application.UseCases.ShortenedUrls.Commands.Shorten;
 using UrlShortener.Domain.Models.UserModel;
 using Xunit;
 
-namespace UrlShortener.Tests.UseCases.ShortenedUrls.Commands.Shorten;
+namespace UrlShortener.Application.Tests.UseCases.ShortenedUrls.Commands.Shorten;
 
 public class ShortenCommandValidatorTests
 {

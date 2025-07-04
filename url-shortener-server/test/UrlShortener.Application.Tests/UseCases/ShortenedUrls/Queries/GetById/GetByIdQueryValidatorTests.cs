@@ -2,7 +2,7 @@ using FluentValidation.TestHelper;
 using UrlShortener.Application.UseCases.ShortenedUrls.Queries.GetById;
 using UrlShortener.Domain.Models.ShortenedUrlModel;
 
-namespace UrlShortener.Tests.UseCases.ShortenedUrls.Queries.GetById;
+namespace UrlShortener.Application.Tests.UseCases.ShortenedUrls.Queries.GetById;
 
 public class GetByIdQueryValidatorTests
 {

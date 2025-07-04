@@ -3,7 +3,7 @@ using UrlShortener.Application.UseCases.ShortenedUrls.Queries.RedirectToOriginal
 using UrlShortener.Domain.Interfaces.Repositories;
 using UrlShortener.Domain.Models.ShortenedUrlModel;
 
-namespace UrlShortener.Tests.UseCases.ShortenedUrls.Queries.RedirectToOriginalUrl;
+namespace UrlShortener.Application.Tests.UseCases.ShortenedUrls.Queries.RedirectToOriginalUrl;
 
 public class RedirectToOriginalUrlQueryHandlerTests
 {

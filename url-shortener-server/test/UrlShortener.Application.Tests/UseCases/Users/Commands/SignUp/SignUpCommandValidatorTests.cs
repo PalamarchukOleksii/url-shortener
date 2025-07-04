@@ -1,7 +1,7 @@
 using FluentValidation.TestHelper;
 using UrlShortener.Application.UseCases.Users.Command.SignUp;
 
-namespace UrlShortener.Tests.UseCases.Users.Commands.SignUp;
+namespace UrlShortener.Application.Tests.UseCases.Users.Commands.SignUp;
 
 public class SignUpCommandValidatorTests
 {

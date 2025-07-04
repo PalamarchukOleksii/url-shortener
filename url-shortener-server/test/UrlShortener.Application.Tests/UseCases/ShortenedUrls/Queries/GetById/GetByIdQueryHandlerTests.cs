@@ -4,7 +4,7 @@ using UrlShortener.Domain.Interfaces.Repositories;
 using UrlShortener.Domain.Models.ShortenedUrlModel;
 using UrlShortener.Domain.Models.UserModel;
 
-namespace UrlShortener.Tests.UseCases.ShortenedUrls.Queries.GetById;
+namespace UrlShortener.Application.Tests.UseCases.ShortenedUrls.Queries.GetById;
 
 public class GetByIdQueryHandlerTests
 {

@@ -4,7 +4,7 @@ using UrlShortener.Domain.Interfaces.Repositories;
 using UrlShortener.Domain.Models.ShortenedUrlModel;
 using UrlShortener.Domain.Models.UserModel;
 
-namespace UrlShortener.Tests.UseCases.ShortenedUrls.Commands.DeleteById;
+namespace UrlShortener.Application.Tests.UseCases.ShortenedUrls.Commands.DeleteById;
 
 public class DeleteByIdCommandHandlerTests
 {
