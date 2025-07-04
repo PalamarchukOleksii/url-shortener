@@ -38,7 +38,7 @@ function Home() {
             })
             .catch((err) => {
                 console.error("Failed to check next page", err);
-                setHasNextPage(false); // fallback
+                setHasNextPage(false);
             });
     }, [page, count]);
 

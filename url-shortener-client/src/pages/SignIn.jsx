@@ -64,7 +64,7 @@ function SignIn() {
                             type="button"
                             onClick={() => setShowPassword((prev) => !prev)}
                             className="absolute right-2 top-2 text-sm text-blue-600 hover:text-blue-800 select-none"
-                            tabIndex={-1} // exclude from tab order for accessibility
+                            tabIndex={-1}
                         >
                             {showPassword ? "Hide" : "Show"}
                         </button>
