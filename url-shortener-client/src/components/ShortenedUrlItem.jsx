@@ -31,7 +31,7 @@ function ShortenUrlItem({url, onDelete}) {
             if (onDelete) onDelete(url.id.value);
         } catch (err) {
             console.error(err);
-            toast.error("Failed to delete URL.");
+            toast.error(err.response?.data?.message || err.response.data.detail || "Failed to delete URL.");
         }
     };
 

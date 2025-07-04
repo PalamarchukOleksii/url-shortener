@@ -14,7 +14,7 @@ function ShortenUrlDetails() {
         axiosBase
             .get(`api/shortenedurls/${id}`)
             .then((res) => setUrlDetails(res.data))
-            .catch((error) => toast.error(error.response.data.message));
+            .catch((error) => toast.error(err.response?.data?.message || err.response.data.detail || "Failed to load details about shortened Url."));
     }, [id]);
 
     if (!urlDetails) return <div>Loading...</div>;

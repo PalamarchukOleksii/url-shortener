@@ -27,7 +27,7 @@ function SignIn() {
             navigate("/");
         } catch (error) {
             console.error(error);
-            toast.error(error.response.data.message);
+            toast.error(err.response?.data?.message || err.response.data.detail || "Failed to Sign in.");
         } finally {
             setLoading(false);
         }

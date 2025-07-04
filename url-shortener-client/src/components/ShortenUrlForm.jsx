@@ -20,11 +20,12 @@ const ShortenUrlForm = ({onCreated}) => {
             });
 
             toast.success("URL shortened successfully!");
-            onCreated?.(response.data); // notify parent
-            setOriginalUrl(""); // clear input
+            onCreated?.(response.data);
+            setOriginalUrl("");
         } catch (err) {
             console.error(err);
-            toast.error(err.response?.data?.message || "Failed to shorten URL.");
+            toast.error(err.response?.data?.message || err.response.data.detail || "Failed to shorten URL.");
+
         } finally {
             setLoading(false);
         }
