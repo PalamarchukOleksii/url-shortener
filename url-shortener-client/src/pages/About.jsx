@@ -14,8 +14,6 @@ function About() {
                 console.error(err);
                 toast.error(err.response.data.message);
             });
-
-
     }, []);
 
     if (!aboutData) return <div>Loading...</div>;

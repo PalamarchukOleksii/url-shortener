@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from "react";
 import axiosBase from "../api/axiosBase";
-import {BACKEND_BASE_URL} from "../utils/constants.js";
 import {toast} from "react-toastify";
+import ShortenUrlItem from "../components/ShortenedUrlItem.jsx";
 
 function Home() {
     const [urls, setUrls] = useState([]);
     const [page, setPage] = useState(1);
-    const count = 10; // items per page
+    const count = 10;
 
     useEffect(() => {
         axiosBase
@@ -37,19 +37,13 @@ function Home() {
             <h1>Home</h1>
             <ul>
                 {urls.map((url) => (
-                    <li key={url.id.value}>
-                        <a href={url.originalUrl} target="_blank" rel="noopener noreferrer">
-                            {url.originalUrl}
-                        </a>{" "}
-                        —{" "}
-                        <a
-                            href={`${BACKEND_BASE_URL}/${url.shortCode}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            {`${BACKEND_BASE_URL}/${url.shortCode}`}
-                        </a>
-                    </li>
+                    <ShortenUrlItem
+                        key={url.id.value}
+                        url={url}
+                        onDelete={(deletedId) =>
+                            setUrls((prev) => prev.filter((u) => u.id.value !== deletedId))
+                        }
+                    />
                 ))}
             </ul>
 
