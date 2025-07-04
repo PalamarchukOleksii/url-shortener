@@ -57,7 +57,7 @@ public class ShortenedUrlRepository(ApplicationDbContext context) : IShortenedUr
     {
         return await context.ShortenedUrls
             .AsNoTracking()
-            .OrderByDescending(x => x.RedirectCount)
+            .OrderByDescending(x => x.CreatedAt)
             .Skip(Math.Max(pageNumber - 1, 0) * pageSize)
             .Take(pageSize)
             .ToListAsync();
