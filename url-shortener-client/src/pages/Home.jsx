@@ -9,7 +9,7 @@ function Home() {
     const {isAuthenticated} = useAuth();
     const [urls, setUrls] = useState([]);
     const [page, setPage] = useState(1);
-    const count = 10;
+    const [count, setCount] = useState(10);
 
     useEffect(() => {
         axiosBase
@@ -21,9 +21,13 @@ function Home() {
             })
             .catch((err) => {
                 console.error(err);
-                toast.error(err.response?.data?.message || err.response.data.detail || "Failed to load shortened Urls.");
+                toast.error(
+                    err.response?.data?.message ||
+                    err.response?.data?.detail ||
+                    "Failed to load shortened Urls."
+                );
             });
-    }, [page]);
+    }, [page, count]);
 
     const handlePrev = () => {
         if (page > 1) setPage((p) => p - 1);
@@ -39,17 +43,38 @@ function Home() {
         }
     };
 
+    const handleCountChange = (e) => {
+        setCount(Number(e.target.value));
+        setPage(1);
+    };
+
     if (!urls) return (
         <div>
             <h1>Home</h1>
             <p>Loading...</p>
-        </div>);
+        </div>
+    );
 
     return (
         <div>
             <h1>Home</h1>
 
             {isAuthenticated && <ShortenUrlForm onCreated={handleAddUrl}/>}
+
+            <label htmlFor="itemsPerPage" style={{marginRight: "0.5rem"}}>
+                Items per page:
+            </label>
+            <select
+                id="itemsPerPage"
+                value={count}
+                onChange={handleCountChange}
+                style={{marginBottom: "1rem"}}
+            >
+                <option value={5}>5</option>
+                <option value={10}>10</option>
+                <option value={20}>20</option>
+                <option value={50}>50</option>
+            </select>
 
             <ul>
                 {urls.map((url) => (
@@ -68,7 +93,7 @@ function Home() {
                     Previous
                 </button>
                 <span style={{margin: "0 1rem"}}>Page: {page}</span>
-                <button onClick={handleNext} disabled={urls.length < count}>
+                <button onClick={handleNext} disabled={urls.length <= count}>
                     Next
                 </button>
             </div>
